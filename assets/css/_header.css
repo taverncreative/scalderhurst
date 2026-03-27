@@ -162,7 +162,7 @@ nav[aria-label="Primary"] a:hover {
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: center;
-    align-items: center;
+    align-items: baseline;
     width: 100%;
     gap: var(--space-md);
   }
