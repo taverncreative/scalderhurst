@@ -169,13 +169,15 @@ nav[aria-label="Primary"] a:hover {
 
   nav[aria-label="Primary"] li {
     border-bottom: none;
+    display: flex;
+    align-items: center;
   }
 
   nav[aria-label="Primary"] a {
-    display: inline-block;
-    padding: var(--space-sm) 0;
+    display: block;
+    padding: 0;
     font-size: var(--text-sm);
-    line-height: 1;
+    line-height: 1.2;
   }
 
   .header-cta {
