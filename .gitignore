@@ -1,0 +1,16 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Source images (raw uploads, not web-optimized)
+/Images/
+
+# Editor files
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Future build output
+/dist/
+node_modules/

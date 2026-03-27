@@ -1,0 +1,117 @@
+/* _footer.css — Footer as solid foundation */
+
+footer[role="contentinfo"] {
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+  padding: var(--space-5xl) var(--space-md) var(--space-3xl);
+  position: relative;
+}
+
+/* Paper texture overlay */
+footer[role="contentinfo"]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/assets/images/textures/paper-texture.jpg');
+  background-size: 400px;
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+/* Gold → blue gradient top accent */
+footer[role="contentinfo"]::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-secondary), var(--color-accent));
+}
+
+/* Constrain content */
+footer[role="contentinfo"] > * {
+  position: relative;
+  z-index: 1;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Footer columns */
+footer[role="contentinfo"] > section,
+footer[role="contentinfo"] > nav {
+  margin-bottom: var(--space-xl);
+}
+
+@media (min-width: 48rem) {
+  footer[role="contentinfo"] {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: var(--space-2xl);
+    align-items: start;
+    padding-left: var(--space-xl);
+    padding-right: var(--space-xl);
+  }
+
+  footer[role="contentinfo"] > section,
+  footer[role="contentinfo"] > nav {
+    margin-bottom: 0;
+  }
+
+  footer[role="contentinfo"] > small {
+    grid-column: 1 / -1;
+  }
+}
+
+footer[role="contentinfo"] p {
+  color: var(--color-text-on-dark);
+  max-width: none;
+}
+
+footer h3 {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-normal);
+  color: var(--color-text-inverse);
+  margin-bottom: var(--space-lg);
+  letter-spacing: -0.01em;
+}
+
+footer nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+footer nav a {
+  font-size: var(--text-sm);
+  color: var(--color-text-on-dark);
+}
+
+footer nav a:hover {
+  color: var(--color-secondary-light);
+}
+
+footer address {
+  font-style: normal;
+  font-size: var(--text-sm);
+  color: var(--color-text-on-dark);
+  line-height: var(--leading-relaxed);
+}
+
+footer address a {
+  color: var(--color-text-on-dark);
+}
+
+footer address a:hover {
+  color: var(--color-secondary-light);
+}
+
+footer small {
+  display: block;
+  font-size: var(--text-xs);
+  color: rgba(255, 255, 255, 0.4);
+  padding-top: var(--space-2xl);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}

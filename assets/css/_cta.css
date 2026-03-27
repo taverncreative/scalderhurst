@@ -1,0 +1,65 @@
+/* _cta.css — Powerful call-to-action section */
+
+section[aria-labelledby="cta-heading"] {
+  background-color: var(--color-surface-dark);
+  background-image: url('/assets/images/banners/products-header.jpg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  text-align: center;
+  padding-top: var(--space-5xl);
+  padding-bottom: var(--space-5xl);
+}
+
+/* Richer gradient */
+section[aria-labelledby="cta-heading"]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(15, 23, 42, 0.94) 0%,
+    rgba(48, 88, 140, 0.88) 60%,
+    rgba(48, 88, 140, 0.80) 100%
+  );
+  z-index: 0;
+}
+
+/* Paper texture overlay */
+section[aria-labelledby="cta-heading"]::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/assets/images/textures/paper-texture.jpg');
+  background-size: 400px;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+  z-index: 0;
+  pointer-events: none;
+}
+
+section[aria-labelledby="cta-heading"] > * {
+  position: relative;
+  z-index: 1;
+}
+
+section[aria-labelledby="cta-heading"] h2 {
+  color: var(--color-text-inverse);
+  font-size: var(--text-4xl);
+  margin-bottom: var(--space-md);
+}
+
+@media (min-width: 64rem) {
+  section[aria-labelledby="cta-heading"] h2 {
+    font-size: var(--text-5xl);
+  }
+}
+
+section[aria-labelledby="cta-heading"] p {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: var(--space-2xl);
+  color: var(--color-text-on-dark);
+  font-size: var(--text-lg);
+  max-width: 50ch;
+}

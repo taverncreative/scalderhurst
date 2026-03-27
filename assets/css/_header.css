@@ -1,0 +1,242 @@
+/* _header.css — Site header with hamburger collapse below 64rem */
+
+header[role="banner"] {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--color-bg);
+  box-shadow: var(--shadow-sm);
+}
+
+header[role="banner"] .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: none;
+  padding: var(--space-sm) var(--space-md);
+  gap: var(--space-sm);
+}
+
+/* Logo — always visible, min size enforced */
+header[role="banner"] > .container > a:first-child {
+  flex-shrink: 0;
+}
+
+header[role="banner"] img {
+  height: 4rem;
+  width: auto;
+  min-height: 3rem;
+  object-fit: contain;
+}
+
+/* ========================================
+   HAMBURGER BUTTON — visible below 64rem
+   ======================================== */
+header[role="banner"] .nav-toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0.5rem;
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  flex-shrink: 0;
+  order: 2;
+}
+
+header[role="banner"] .nav-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-primary);
+  border-radius: 1px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* Animate to X when open */
+header[role="banner"] .nav-toggle[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+header[role="banner"] .nav-toggle[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+
+header[role="banner"] .nav-toggle[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ========================================
+   MOBILE NAV — hidden by default, full-width dropdown
+   ======================================== */
+nav[aria-label="Primary"] {
+  display: none;
+  width: 100%;
+  order: 10;
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-border);
+}
+
+/* Show when toggled open */
+nav[aria-label="Primary"].is-open {
+  display: block;
+}
+
+nav[aria-label="Primary"] ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav[aria-label="Primary"] li {
+  border-bottom: 1px solid var(--color-border);
+}
+
+nav[aria-label="Primary"] li:last-child {
+  border-bottom: none;
+}
+
+nav[aria-label="Primary"] a {
+  display: block;
+  padding: var(--space-sm) 0;
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-muted);
+  text-decoration: none;
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+}
+
+nav[aria-label="Primary"] a:hover {
+  color: var(--color-primary);
+}
+
+/* Header CTA — visible on mobile next to hamburger */
+.header-cta {
+  flex-shrink: 0;
+  padding: 0.5rem 1rem;
+  font-size: var(--text-sm);
+  order: 1;
+}
+
+/* ========================================
+   DESKTOP — 64rem (1024px) and up
+   Nav becomes horizontal, hamburger hidden
+   ======================================== */
+@media (min-width: 64rem) {
+  header[role="banner"] .container {
+    flex-wrap: nowrap;
+    padding: var(--space-md) var(--space-lg);
+    gap: var(--space-md);
+  }
+
+  header[role="banner"] img {
+    height: 5.5rem;
+  }
+
+  /* Hide hamburger */
+  header[role="banner"] .nav-toggle {
+    display: none;
+  }
+
+  /* Show nav inline */
+  nav[aria-label="Primary"] {
+    display: block;
+    width: auto;
+    order: 0;
+    flex: 1;
+    min-width: 0;
+    padding-top: 0;
+    border-top: none;
+  }
+
+  nav[aria-label="Primary"] ul {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: var(--space-md);
+  }
+
+  nav[aria-label="Primary"] li {
+    border-bottom: none;
+  }
+
+  nav[aria-label="Primary"] a {
+    display: inline;
+    padding: 0;
+    font-size: var(--text-sm);
+  }
+
+  .header-cta {
+    order: 0;
+  }
+}
+
+/* ——— Wide desktop (80rem / 1280px) ——— */
+@media (min-width: 80rem) {
+  header[role="banner"] .container {
+    gap: var(--space-lg);
+  }
+
+  header[role="banner"] img {
+    height: 7rem;
+  }
+
+  nav[aria-label="Primary"] ul {
+    gap: var(--space-lg);
+  }
+}
+
+/* ——— Extra wide (90rem / 1440px) ——— */
+@media (min-width: 90rem) {
+  header[role="banner"] img {
+    height: 8rem;
+  }
+
+  nav[aria-label="Primary"] ul {
+    gap: var(--space-xl);
+  }
+}
+
+/* ========================================
+   BREADCRUMB
+   ======================================== */
+nav[aria-label="Breadcrumb"] {
+  padding: var(--space-md);
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+nav[aria-label="Breadcrumb"] ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  font-size: var(--text-sm);
+  color: var(--color-text-light);
+}
+
+nav[aria-label="Breadcrumb"] li + li::before {
+  content: "/";
+  margin-right: var(--space-xs);
+}
+
+nav[aria-label="Breadcrumb"] a {
+  color: var(--color-text-light);
+}
+
+nav[aria-label="Breadcrumb"] a:hover {
+  color: var(--color-accent);
+}
+
+nav[aria-label="Breadcrumb"] [aria-current="page"] {
+  color: var(--color-primary);
+  font-weight: var(--weight-medium);
+}

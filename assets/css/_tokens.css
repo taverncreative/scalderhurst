@@ -1,0 +1,93 @@
+/* _tokens.css — Design tokens as CSS custom properties */
+
+:root {
+  /* Colors — Scalderhurst brand palette
+     Primary brand: #30588C (Scalderhurst blue)
+     Secondary: #B8860B (heritage gold) */
+  --color-primary: #0f172a;
+  --color-primary-light: #1e293b;
+  --color-brand: #30588C;
+  --color-brand-dark: #264770;
+  --color-brand-light: #e8eff7;
+  --color-accent: #30588C;
+  --color-accent-dark: #264770;
+  --color-accent-light: #e8eff7;
+
+  /* Secondary — Heritage gold */
+  --color-secondary: #B8860B;
+  --color-secondary-dark: #996F0A;
+  --color-secondary-light: #F5E6C8;
+
+  /* Backgrounds — warm neutrals */
+  --color-bg: #ffffff;
+  --color-surface: #FAF8F5;
+  --color-surface-dark: #0f172a;
+
+  /* Text — warm tones */
+  --color-text: #1e293b;
+  --color-text-muted: #6B6560;
+  --color-text-light: #9C9590;
+  --color-text-inverse: #ffffff;
+  --color-text-on-dark: #D4CFC8;
+
+  /* Borders — warm */
+  --color-border: #E8E3DC;
+  --color-border-light: #F3F0EB;
+
+  --color-success: #059669;
+
+  /* Spacing — 4px base */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  --space-4xl: 6rem;
+  --space-5xl: 8rem;
+
+  /* Typography */
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-heading: 'DM Serif Display', Georgia, 'Times New Roman', serif;
+
+  /* Font sizes */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 2rem;
+  --text-4xl: 2.5rem;
+  --text-5xl: 3rem;
+  --text-6xl: 3.5rem;
+
+  /* Line heights */
+  --leading-tight: 1.15;
+  --leading-snug: 1.3;
+  --leading-normal: 1.6;
+  --leading-relaxed: 1.75;
+
+  /* Font weights */
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* Border radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+
+  /* Shadows — layered for depth */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05), 0 10px 15px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.08), 0 20px 48px rgba(0, 0, 0, 0.06);
+  --shadow-xl: 0 20px 50px rgba(0, 0, 0, 0.12);
+
+  /* Layout */
+  --container-max: 72rem;
+  --content-max: 65ch;
+}

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- ============================================================
+       META & SEO — Service Page
+       Replace all [PLACEHOLDER] values with service-specific content.
+       ============================================================ -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Page title — format: "[Service Name] Services | Scalderhurst" -->
+  <title>[Service Name] Services | Scalderhurst</title>
+
+  <!-- Meta description — focus on what the service is and who it's for -->
+  <meta name="description" content="[Describe the service, its key benefit, and target audience in under 155 characters]">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://www.scalderhurst.co.uk/[service-slug]/">
+
+  <!-- Open Graph tags -->
+  <meta property="og:title" content="[Service Name] Services | Scalderhurst">
+  <meta property="og:description" content="[Social-optimised description of the service]">
+  <meta property="og:url" content="https://www.scalderhurst.co.uk/[service-slug]/">
+  <meta property="og:image" content="https://www.scalderhurst.co.uk/assets/images/og/[service-og-image].jpg">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Scalderhurst">
+
+  <!-- Twitter card -->
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.png" type="image/png">
+
+  <!-- Google Fonts — Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+
+  <!-- ============================================================
+       STRUCTURED DATA — Service + Breadcrumbs (JSON-LD)
+       ============================================================ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "[Service Name]",
+    "description": "[Detailed service description for structured data — what the service is, what it includes, and who it serves]",
+    "provider": {
+      "@type": "Organization",
+      "name": "Scalderhurst",
+      "url": "https://www.scalderhurst.co.uk",
+      "logo": "https://www.scalderhurst.co.uk/assets/images/logos/scalderhurst-logo.svg"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Kingdom"
+    },
+    "serviceType": "[Service Category — e.g., Board Supply, Paper Conversion, Warehousing]"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.scalderhurst.co.uk/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "[Parent Category]",
+        "item": "https://www.scalderhurst.co.uk/[parent-slug]/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "[Service Name]",
+        "item": "https://www.scalderhurst.co.uk/[parent-slug]/[service-slug]/"
+      }
+    ]
+  }
+  </script>
+</head>
+
+<body>
+
+  <!-- ============================================================
+       SITE HEADER — Loaded via includes.js from /components/header.html
+       ============================================================ -->
+  <div data-include="header"></div>
+
+
+  <!-- BREADCRUMB NAVIGATION -->
+  <nav aria-label="Breadcrumb">
+    <ol>
+      <li><a href="/">Home</a></li>
+      <li><a href="/[parent-slug]/">[Parent Category]</a></li>
+      <li aria-current="page">[Service Name]</li>
+    </ol>
+  </nav>
+
+
+  <!-- ============================================================
+       MAIN CONTENT — Service Page
+       ============================================================ -->
+  <main id="main-content">
+
+
+    <!-- HERO SECTION
+         Wrapped in <header> to semantically mark the page's introductory content.
+         H1 for the service. Only one H1 per page.
+         Intro paragraph provides immediate context for users and search engines. -->
+    <header class="hero" aria-labelledby="hero-heading">
+      <div class="container">
+        <h1 id="hero-heading">[Service Name] — [Short Value Statement]</h1>
+        <p>[Introductory paragraph — 2–3 sentences that clearly explain what this service is, who it is designed for, and the primary outcome or value it delivers. This text should orient the visitor immediately and reinforce the page's target keyword naturally within the opening content.]</p>
+        <picture>
+          <img
+            src="/assets/images/banners/[service-image].jpg"
+            alt="[Service Name] service at Scalderhurst"
+            loading="eager">
+        </picture>
+      </div>
+    </header>
+
+
+    <!-- KEY BENEFITS
+         Scannable list of the top reasons a customer would use this service.
+         Each benefit includes a strong heading and supporting detail.
+         Structured for featured snippet potential and quick scanning. -->
+    <section aria-labelledby="benefits-heading">
+      <h2 id="benefits-heading">Key Benefits</h2>
+      <ul>
+        <li>
+          <strong>[Benefit Heading 1 — e.g., "Nationwide Delivery"]</strong>
+          <p>[Supporting detail — e.g., "We deliver to any UK mainland address within 48 hours, with tracked consignments and flexible scheduling to suit your production line."]</p>
+        </li>
+        <li>
+          <strong>[Benefit Heading 2 — e.g., "Custom Specifications"]</strong>
+          <p>[Supporting detail — e.g., "Every order is converted to your exact size, weight, and finish requirements. No minimum order quantities on standard grades."]</p>
+        </li>
+        <li>
+          <strong>[Benefit Heading 3 — e.g., "Dedicated Account Management"]</strong>
+          <p>[Supporting detail — e.g., "Your named account manager understands your business and ensures continuity of supply, pricing stability, and proactive communication."]</p>
+        </li>
+        <li>
+          <strong>[Benefit Heading 4 — e.g., "Competitive Volume Pricing"]</strong>
+          <p>[Supporting detail — e.g., "Tiered pricing structures reward volume commitments, with transparent quotes and no hidden surcharges on delivery or handling."]</p>
+        </li>
+      </ul>
+    </section>
+
+
+    <!-- SERVICE DETAILS
+         In-depth explanation of the service. Use H3 subheadings to
+         break down different aspects (process, capabilities, specs). -->
+    <section aria-labelledby="details-heading">
+      <h2 id="details-heading">Service Details</h2>
+
+      <p>[Detailed description of the service — what it involves, how it works, and what the customer receives]</p>
+
+      <h3>[Process / Capability 1]</h3>
+      <p>[Explanation of this specific aspect of the service]</p>
+
+      <h3>[Process / Capability 2]</h3>
+      <p>[Explanation of this specific aspect of the service]</p>
+
+      <h3>[Specifications / Standards]</h3>
+      <p>[Technical details, certifications, quality standards if applicable]</p>
+    </section>
+
+
+    <!-- APPLICATIONS / USE CASES
+         Show how this service applies in practice. Helps customers
+         see themselves as the target audience. -->
+    <section aria-labelledby="applications-heading">
+      <h2 id="applications-heading">Applications &amp; Use Cases</h2>
+
+      <article>
+        <h3>[Application 1 — e.g., "Retail Packaging"]</h3>
+        <p>[How this service is used in this application]</p>
+      </article>
+
+      <article>
+        <h3>[Application 2 — e.g., "Transit Protection"]</h3>
+        <p>[How this service is used in this application]</p>
+      </article>
+
+      <article>
+        <h3>[Application 3 — e.g., "Display &amp; Point of Sale"]</h3>
+        <p>[How this service is used in this application]</p>
+      </article>
+    </section>
+
+
+    <!-- WHY CHOOSE SCALDERHURST
+         Trust signals and differentiators. Reinforces credibility
+         and gives prospects confidence before reaching the CTA. -->
+    <section aria-labelledby="why-heading">
+      <h2 id="why-heading">Why Choose Scalderhurst for [Service Name]</h2>
+
+      <article>
+        <h3>Industry Experience</h3>
+        <p>[Number of years in the paper and board industry, depth of market knowledge, and understanding of customer requirements across sectors.]</p>
+      </article>
+
+      <article>
+        <h3>Reliable Supply Chain</h3>
+        <p>[Established mill relationships, consistent stock availability, and a warehousing infrastructure that ensures continuity of supply even during market disruption.]</p>
+      </article>
+
+      <article>
+        <h3>Quality Assurance</h3>
+        <p>[Commitment to quality control, relevant certifications (e.g., ISO, FSC, PEFC), and rigorous inspection processes at every stage from intake to dispatch.]</p>
+      </article>
+
+      <article>
+        <h3>Customer-First Approach</h3>
+        <p>[Dedicated account management, responsive service, flexible order quantities, and a genuine commitment to building long-term partnerships rather than one-off transactions.]</p>
+      </article>
+    </section>
+
+
+    <!-- RELATED SERVICES
+         Internal links to other services. Builds internal link equity
+         and helps users discover related offerings. Each related service
+         is wrapped in an <article> with an H3 heading and description. -->
+    <section aria-labelledby="related-heading">
+      <h2 id="related-heading">Related Services</h2>
+
+      <div class="card-grid">
+        <article>
+          <h3><a href="/[related-service-1]/">[Related Service Name 1]</a></h3>
+          <p>[Brief description of this related service and how it complements the current service — 1–2 sentences.]</p>
+        </article>
+
+        <article>
+          <h3><a href="/[related-service-2]/">[Related Service Name 2]</a></h3>
+          <p>[Brief description of this related service and how it complements the current service — 1–2 sentences.]</p>
+        </article>
+
+        <article>
+          <h3><a href="/[related-service-3]/">[Related Service Name 3]</a></h3>
+          <p>[Brief description of this related service and how it complements the current service — 1–2 sentences.]</p>
+        </article>
+      </div>
+    </section>
+
+
+    <!-- CTA SECTION
+         Structured call-to-action with heading, supporting text, and
+         direct link to the contact page. Placed at the end of main
+         content to capture visitors ready to take action. -->
+    <section aria-labelledby="cta-heading">
+      <h2 id="cta-heading">Ready to Discuss Your [Service Name] Requirements?</h2>
+      <p>Our team is here to help you find the right solution. Whether you need a quote, technical advice, or want to discuss your specific requirements, get in touch and we will respond promptly.</p>
+      <a href="/contact/" class="btn-primary" aria-label="Request a quote for [Service Name]">Request a Quote</a>
+    </section>
+
+
+  </main>
+
+
+  <!-- ============================================================
+       FOOTER — Loaded via includes.js from /components/footer.html
+       ============================================================ -->
+  <div data-include="footer"></div>
+
+
+  <!-- SCRIPTS -->
+  <script src="/assets/js/includes.js"></script>
+  <script src="/assets/js/main.js" type="module"></script>
+
+</body>
+</html>

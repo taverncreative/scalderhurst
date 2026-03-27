@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- ============================================================
+       META & SEO
+       Replace all [PLACEHOLDER] values with page-specific content.
+       ============================================================ -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Page title — unique per page, under 60 characters, keyword-primary -->
+  <title>[Page Title] | Scalerhurst</title>
+
+  <!-- Meta description — unique per page, under 155 characters -->
+  <meta name="description" content="[Concise description of this page's content and value proposition]">
+
+  <!-- Canonical URL — self-referencing, prevents duplicate content -->
+  <link rel="canonical" href="https://www.scalderhurst.co.uk/[page-slug]/">
+
+  <!-- Open Graph tags — for social sharing -->
+  <meta property="og:title" content="[Page Title] | Scalerhurst">
+  <meta property="og:description" content="[Same or adapted meta description for social]">
+  <meta property="og:url" content="https://www.scalderhurst.co.uk/[page-slug]/">
+  <meta property="og:image" content="https://www.scalderhurst.co.uk/assets/images/og/[page-og-image].jpg">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Scalerhurst">
+
+  <!-- Twitter card -->
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Favicon — replace with actual favicon path -->
+  <link rel="icon" href="/favicon.png" type="image/png">
+
+  <!-- Google Fonts — Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+
+  <!-- ============================================================
+       STRUCTURED DATA — Breadcrumbs (JSON-LD)
+       Update itemListElement for each page's position in the hierarchy.
+       ============================================================ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.scalderhurst.co.uk/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "[Current Page Name]",
+        "item": "https://www.scalderhurst.co.uk/[page-slug]/"
+      }
+    ]
+  }
+  </script>
+</head>
+
+<body>
+
+  <!-- ============================================================
+       HEADER — Loaded via includes.js from /components/header.html
+       Contains logo and navigation.
+       ============================================================ -->
+  <div data-include="header"></div>
+
+
+  <!-- ============================================================
+       BREADCRUMB — Visible breadcrumb trail for navigation and UX.
+       Not used on homepage. Update text for each page.
+       ============================================================ -->
+  <nav aria-label="Breadcrumb">
+    <ol>
+      <li><a href="/">Home</a></li>
+      <li aria-current="page">[Current Page Name]</li>
+    </ol>
+  </nav>
+
+
+  <!-- ============================================================
+       MAIN CONTENT — All unique page content lives inside <main>.
+       This is the primary content area for accessibility and SEO.
+       ============================================================ -->
+  <main id="main-content">
+
+
+    <!-- HERO SECTION
+         The primary heading (H1) for this page. Only one H1 per page.
+         Replace background image and text for each page. -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <h1 id="hero-heading">[Page Heading — Primary Keyword]</h1>
+      <p>[Brief tagline or value statement supporting the H1]</p>
+    </section>
+
+
+    <!-- INTRO SECTION
+         A short summary that introduces the page's purpose.
+         Helps users and search engines understand the page quickly. -->
+    <section aria-labelledby="intro-heading">
+      <h2 id="intro-heading">[Intro Section Heading]</h2>
+      <p>[1–2 paragraphs summarising what this page covers and why it matters to the visitor]</p>
+    </section>
+
+
+    <!-- MAIN CONTENT SECTION
+         The core information for this page. Structure with H2/H3
+         subheadings, paragraphs, lists, and images as needed. -->
+    <section aria-labelledby="content-heading">
+      <h2 id="content-heading">[Main Content Heading]</h2>
+
+      <p>[Primary content paragraphs — explain the topic in detail]</p>
+
+      <h3>[Subsection Heading if Needed]</h3>
+      <p>[Supporting detail or secondary topic]</p>
+    </section>
+
+
+    <!-- CTA SECTION
+         Call-to-action prompting the visitor to take the next step.
+         Loaded from /components/cta.html for site-wide consistency. -->
+    <div data-include="cta"></div>
+
+
+    <!-- SUPPORTING CONTENT (OPTIONAL)
+         Additional context, testimonials, related links, or
+         supplementary information. Remove this section if not needed. -->
+    <section aria-labelledby="supporting-heading">
+      <h2 id="supporting-heading">[Supporting Content Heading]</h2>
+      <p>[Additional information that adds value — FAQs, testimonials, related reading]</p>
+    </section>
+
+
+  </main>
+
+
+  <!-- ============================================================
+       FOOTER — Loaded via includes.js from /components/footer.html
+       Contains footer navigation, contact info, and legal text.
+       ============================================================ -->
+  <div data-include="footer"></div>
+
+
+  <!-- ============================================================
+       SCRIPTS — Loaded at end of body for performance.
+       includes.js must load first to inject header/footer/CTA.
+       ============================================================ -->
+  <script src="/assets/js/includes.js"></script>
+  <script src="/assets/js/main.js" type="module"></script>
+
+</body>
+</html>

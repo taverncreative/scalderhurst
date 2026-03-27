@@ -1,0 +1,14 @@
+/* main.css — Single entry point. Imports all partials in cascade order. */
+
+@import '_tokens.css';
+@import '_reset.css';
+@import '_typography.css';
+@import '_layout.css';
+@import '_buttons.css';
+@import '_forms.css';
+@import '_header.css';
+@import '_hero.css';
+@import '_cards.css';
+@import '_cta.css';
+@import '_animations.css';
+@import '_footer.css';

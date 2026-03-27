@@ -1,0 +1,94 @@
+/* _cards.css — Premium card system */
+
+/* Card — shadow depth, no border accent */
+.card-grid article {
+  position: relative;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-lg);
+  background-color: var(--color-bg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06),
+              0 8px 24px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  overflow: hidden;
+}
+
+.card-grid article:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08),
+              0 20px 48px rgba(0, 0, 0, 0.06);
+}
+
+/* Gold left accent — appears on hover */
+.card-grid article::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background-color: var(--color-secondary);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.3s ease;
+  z-index: 2;
+}
+
+.card-grid article:hover::before {
+  transform: scaleY(1);
+}
+
+/* Card image — full bleed */
+.card-grid article img {
+  border-radius: 0;
+  margin: 0;
+  width: 100%;
+  height: 14rem;
+  object-fit: cover;
+  display: block;
+}
+
+/* Card text content — internal padding */
+.card-grid article h3 {
+  padding: var(--space-lg) var(--space-xl) 0;
+  margin-bottom: var(--space-sm);
+  font-size: 1.125rem;
+}
+
+.card-grid article h3 a {
+  color: var(--color-primary);
+}
+
+.card-grid article h3 a:hover {
+  color: var(--color-accent);
+}
+
+.card-grid article p {
+  padding-left: var(--space-xl);
+  padding-right: var(--space-xl);
+  margin-bottom: var(--space-md);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+/* Card link — arrow indicator */
+.card-grid article > a:last-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0 var(--space-xl) var(--space-xl);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-accent);
+  transition: gap 0.2s ease;
+}
+
+.card-grid article > a:last-child::after {
+  content: '\2192';
+  transition: transform 0.2s ease;
+}
+
+.card-grid article > a:last-child:hover {
+  color: var(--color-accent-dark);
+  gap: 0.6em;
+}
