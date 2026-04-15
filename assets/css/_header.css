@@ -214,11 +214,13 @@ nav[aria-label="Primary"] a:hover {
 /* ========================================
    BREADCRUMB
    ======================================== */
-nav[aria-label="Breadcrumb"] {
-  padding: var(--space-md) var(--page-gutter);
+body > nav[aria-label="Breadcrumb"] {
+  padding-top: var(--space-md);
+  padding-bottom: var(--space-md);
+  padding-left: var(--page-gutter);
+  padding-right: var(--page-gutter);
   max-width: none;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0;
 }
 
 nav[aria-label="Breadcrumb"] ol {

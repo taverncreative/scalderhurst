@@ -77,24 +77,17 @@
   pointer-events: none;
 }
 
-.hero--dark .container {
+/* Hero inner container mirrors main > section padding exactly so
+   hero content lines up vertically with section content below. */
+.hero--dark .container,
+.hero .container {
   position: relative;
   z-index: 1;
   max-width: none;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 0;
+  margin-right: 0;
   padding-left: var(--page-gutter);
   padding-right: var(--page-gutter);
-}
-
-@media (min-width: 64rem) {
-  .hero--dark .container {
-    max-width: calc(var(--container-max) - var(--space-5xl));
-    margin-left: var(--page-gutter);
-    margin-right: auto;
-    padding-left: 0;
-    padding-right: 0;
-  }
 }
 
 /* H1 — gold accent underline */
