@@ -23,9 +23,9 @@ header[role="banner"] > .container > a:first-child {
 }
 
 header[role="banner"] img {
-  height: 4.75rem;
+  height: 5.75rem;
   width: auto;
-  min-height: 3.5rem;
+  min-height: 4.25rem;
   object-fit: contain;
 }
 
@@ -138,7 +138,7 @@ nav[aria-label="Primary"] a:hover {
   }
 
   header[role="banner"] img {
-    height: 7rem;
+    height: 9rem;
   }
 
   /* Hide hamburger */
@@ -192,7 +192,7 @@ nav[aria-label="Primary"] a:hover {
   }
 
   header[role="banner"] img {
-    height: 8.5rem;
+    height: 11rem;
   }
 
   nav[aria-label="Primary"] ul {
@@ -203,7 +203,7 @@ nav[aria-label="Primary"] a:hover {
 /* ——— Extra wide (90rem / 1440px) ——— */
 @media (min-width: 90rem) {
   header[role="banner"] img {
-    height: 10rem;
+    height: 13rem;
   }
 
   nav[aria-label="Primary"] ul {
