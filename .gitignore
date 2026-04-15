@@ -14,3 +14,14 @@ Thumbs.db
 # Future build output
 /dist/
 node_modules/
+
+# Blog build output (regenerated on deploy — lives on cms-scaffold branch)
+/news/index.html
+/news/*/index.html
+/news/feed.xml
+/news/feed.json
+/assets/images/news/
+/scripts/.cache/
+
+# Vercel local
+.vercel
