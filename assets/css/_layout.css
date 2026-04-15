@@ -156,6 +156,33 @@ main > section > h2 + p {
   }
 }
 
+/* Four-up grid — for 4-pillar sections (home Core Services, 4-card
+   Related Services). Collapses to 2-up on tablet, 1-up on mobile. */
+.card-grid--four {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 48rem) {
+  .card-grid--four {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 72rem) {
+  .card-grid--four {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Auto-fit 4 when exactly 4 articles are present (progressive
+   enhancement — works on all modern browsers). Ensures a
+   Related Services block with 4 cards never wraps 3+1. */
+@media (min-width: 72rem) {
+  .card-grid:has(> article:nth-child(4)):not(:has(> article:nth-child(5))) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
 /* ========================================
    TRUST BAR — milestone statements
    ======================================== */
