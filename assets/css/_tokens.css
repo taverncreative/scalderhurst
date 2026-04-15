@@ -91,12 +91,12 @@
   --container-max: 72rem;
   --content-max: 65ch;
 
-  /* Unified page gutter — used by sections, breadcrumb, hero, trust bar. */
-  --page-gutter: max(1.5rem, calc((100vw - var(--container-max)) / 2));
-}
-
-@media (min-width: 40rem) {
-  :root {
-    --page-gutter: max(2rem, calc((100vw - var(--container-max)) / 2));
-  }
+  /* Unified page gutter — used by sections, breadcrumb, hero, trust bar.
+     Scales smoothly from 24px at narrow mobile up to ~80px at ~1600px,
+     then snaps to centring calc once the viewport exceeds 72rem so
+     content always sits in a centred 72rem column on wide screens. */
+  --page-gutter: max(
+    clamp(1.5rem, 5vw, 5rem),
+    calc((100vw - var(--container-max)) / 2)
+  );
 }
