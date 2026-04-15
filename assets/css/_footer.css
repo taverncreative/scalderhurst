@@ -7,14 +7,16 @@ footer[role="contentinfo"] {
   position: relative;
 }
 
-/* Paper texture overlay */
+/* Subtle tonal overlay for depth — replaces the old paper-texture.jpg
+   (which was literally a photo of beach debris and looked off behind
+   the certification logos). Pure gradient, no external asset. */
 footer[role="contentinfo"]::before {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url('/assets/images/textures/paper-texture.jpg');
-  background-size: 400px;
-  opacity: 0.03;
+  background:
+    radial-gradient(1200px 400px at 85% 0%, rgba(48, 88, 140, 0.25), transparent 70%),
+    radial-gradient(800px 400px at 15% 100%, rgba(184, 134, 11, 0.08), transparent 70%);
   pointer-events: none;
 }
 
@@ -139,12 +141,15 @@ footer small {
 .footer-certs {
   display: flex;
   align-items: center;
-  gap: var(--space-md);
+  gap: var(--space-xl);
+  flex-wrap: wrap;
 }
 
 .footer-certs img {
-  height: 4.25rem;
+  height: 4.5rem;
   width: auto;
+  max-width: 4.5rem;
+  object-fit: contain;
   opacity: 0.95;
 }
 

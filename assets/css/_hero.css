@@ -64,15 +64,13 @@
   z-index: 0;
 }
 
-/* Paper texture overlay for tactile depth */
+/* Subtle tonal overlay for depth (replaces the old paper-texture.jpg
+   which was a photograph of debris, not a paper texture). */
 .hero--dark::after {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url('/assets/images/textures/paper-texture.jpg');
-  background-size: 400px;
-  opacity: 0.04;
-  mix-blend-mode: overlay;
+  background: radial-gradient(1200px 600px at 25% 30%, rgba(48, 88, 140, 0.18), transparent 70%);
   z-index: 0;
   pointer-events: none;
 }

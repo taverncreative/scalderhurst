@@ -1,15 +1,16 @@
-/* main.css — Single entry point. Imports all partials in cascade order. */
+/* main.css — Single entry point. Imports all partials in cascade order.
+   Query string versions below cache-bust every partial whenever a
+   stylesheet change lands. Bump the number in ALL lines on every edit. */
 
-@import '_tokens.css';
-@import '_reset.css';
-@import '_typography.css';
-@import '_layout.css';
-@import '_buttons.css';
-@import '_forms.css';
-@import '_header.css';
-@import '_hero.css';
-@import '_cards.css';
-@import '_post.css';
-@import '_cta.css';
-@import '_animations.css';
-@import '_footer.css';
+@import '_tokens.css?v=8';
+@import '_reset.css?v=8';
+@import '_typography.css?v=8';
+@import '_layout.css?v=8';
+@import '_buttons.css?v=8';
+@import '_forms.css?v=8';
+@import '_header.css?v=8';
+@import '_hero.css?v=8';
+@import '_cards.css?v=8';
+@import '_cta.css?v=8';
+@import '_animations.css?v=8';
+@import '_footer.css?v=8';

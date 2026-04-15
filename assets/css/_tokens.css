@@ -95,8 +95,5 @@
      Scales smoothly from 24px at narrow mobile up to ~80px at ~1600px,
      then snaps to centring calc once the viewport exceeds 72rem so
      content always sits in a centred 72rem column on wide screens. */
-  --page-gutter: max(
-    clamp(1.5rem, 5vw, 5rem),
-    calc((100vw - var(--container-max)) / 2)
-  );
+  --page-gutter: max(clamp(1.5rem, 5vw, 5rem), calc((100vw - var(--container-max)) / 2));
 }

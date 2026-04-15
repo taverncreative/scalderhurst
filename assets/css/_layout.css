@@ -110,9 +110,7 @@ main > section > h2 + p {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url('/assets/images/textures/paper-texture.jpg');
-  background-size: 400px;
-  opacity: 0.03;
+  background: radial-gradient(800px 400px at 50% 50%, rgba(48, 88, 140, 0.12), transparent 70%);
   pointer-events: none;
 }
 

@@ -25,15 +25,12 @@ section[aria-labelledby="cta-heading"]::before {
   z-index: 0;
 }
 
-/* Paper texture overlay */
+/* Subtle tonal overlay replaces the old paper-texture.jpg. */
 section[aria-labelledby="cta-heading"]::after {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url('/assets/images/textures/paper-texture.jpg');
-  background-size: 400px;
-  opacity: 0.04;
-  mix-blend-mode: overlay;
+  background: radial-gradient(1000px 500px at 75% 50%, rgba(184, 134, 11, 0.08), transparent 70%);
   z-index: 0;
   pointer-events: none;
 }
