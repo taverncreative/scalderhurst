@@ -90,4 +90,13 @@
   /* Layout */
   --container-max: 72rem;
   --content-max: 65ch;
+
+  /* Unified page gutter — used by sections, breadcrumb, hero, trust bar. */
+  --page-gutter: max(1.5rem, calc((100vw - var(--container-max)) / 2));
+}
+
+@media (min-width: 40rem) {
+  :root {
+    --page-gutter: max(2rem, calc((100vw - var(--container-max)) / 2));
+  }
 }

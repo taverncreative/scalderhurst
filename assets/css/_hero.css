@@ -80,28 +80,20 @@
 .hero--dark .container {
   position: relative;
   z-index: 1;
-  max-width: 42rem;
+  max-width: none;
   margin-left: auto;
   margin-right: auto;
-  padding-left: var(--space-md);
-  padding-right: var(--space-md);
-}
-
-@media (min-width: 48rem) {
-  .hero--dark .container {
-    max-width: var(--container-max);
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: var(--space-xl);
-    padding-right: var(--space-xl);
-  }
+  padding-left: var(--page-gutter);
+  padding-right: var(--page-gutter);
 }
 
 @media (min-width: 64rem) {
   .hero--dark .container {
-    max-width: 50rem;
-    margin-left: var(--space-5xl);
+    max-width: calc(var(--container-max) - var(--space-5xl));
+    margin-left: var(--page-gutter);
     margin-right: auto;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
@@ -114,6 +106,9 @@
   padding-bottom: var(--space-lg);
   border-bottom: 3px solid var(--color-secondary);
   display: inline-block;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 @media (min-width: 48rem) {
