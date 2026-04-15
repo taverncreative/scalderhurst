@@ -1,6 +1,9 @@
 User-agent: *
 Allow: /
+Disallow: /admin/
 Disallow: /components/
 Disallow: /_templates/
+Disallow: /content/
+Disallow: /api/
 
 Sitemap: https://www.scalderhurst.co.uk/sitemap.xml
