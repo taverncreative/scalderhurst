@@ -15,11 +15,11 @@
  * by the public site. No subscription, no account, just hosted files.
  */
 
-import { Editor } from 'https://esm.sh/@tiptap/core@2.11.7';
-import StarterKit from 'https://esm.sh/@tiptap/starter-kit@2.11.7?deps=@tiptap/core@2.11.7';
-import Link from 'https://esm.sh/@tiptap/extension-link@2.11.7?deps=@tiptap/core@2.11.7';
-import ImageExt from 'https://esm.sh/@tiptap/extension-image@2.11.7?deps=@tiptap/core@2.11.7';
-import Placeholder from 'https://esm.sh/@tiptap/extension-placeholder@2.11.7?deps=@tiptap/core@2.11.7';
+import { Editor } from 'https://cdn.jsdelivr.net/npm/@tiptap/core@2.11.7/+esm';
+import StarterKit from 'https://cdn.jsdelivr.net/npm/@tiptap/starter-kit@2.11.7/+esm';
+import Link from 'https://cdn.jsdelivr.net/npm/@tiptap/extension-link@2.11.7/+esm';
+import ImageExt from 'https://cdn.jsdelivr.net/npm/@tiptap/extension-image@2.11.7/+esm';
+import Placeholder from 'https://cdn.jsdelivr.net/npm/@tiptap/extension-placeholder@2.11.7/+esm';
 
 // ---------- State ---------------------------------------------
 
