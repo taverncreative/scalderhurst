@@ -9,6 +9,11 @@ const SITE = {
   foundingDate: '1973',
 };
 
+// IMPORTANT: bump this whenever the ?v= in assets/css/main.css changes,
+// so generated /news/* pages stay in sync with the rest of the site and
+// browsers don't keep a stale cached stylesheet from a previous build.
+const CSS_VERSION = '13';
+
 function escapeAttr(s) {
   return String(s || '')
     .replace(/&/g, '&amp;')
@@ -112,7 +117,7 @@ ${articleTags ? articleTags + '\n' : ''}
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="/assets/css/main.css?v=2">
+  <link rel="stylesheet" href="/assets/css/main.css?v=${CSS_VERSION}">
 
   <!-- JSON-LD: BreadcrumbList -->
   <script type="application/ld+json">${JSON.stringify(breadcrumbJsonLd, null, 2)}</script>
@@ -160,7 +165,7 @@ export function archiveHead() {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="/assets/css/main.css?v=2">
+  <link rel="stylesheet" href="/assets/css/main.css?v=${CSS_VERSION}">
 
   <script type="application/ld+json">${JSON.stringify(breadcrumb, null, 2)}</script>`;
 }
