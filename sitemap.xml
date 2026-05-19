@@ -26,7 +26,32 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.scalderhurst.co.uk/industries/food-packaging/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.scalderhurst.co.uk/industries/printing/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.scalderhurst.co.uk/industries/retail-packaging/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.scalderhurst.co.uk/resources/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.scalderhurst.co.uk/speciality/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.scalderhurst.co.uk/export/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -37,6 +62,18 @@
   </url>
   <url>
     <loc>https://www.scalderhurst.co.uk/contact/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.scalderhurst.co.uk/news/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.scalderhurst.co.uk/news/new-scalderhurst-website/</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
