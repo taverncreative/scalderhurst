@@ -421,7 +421,11 @@ function renderEditor(existing) {
       toast('Cover image must be under 3 MB', 'error');
       return;
     }
-    // Immediate local preview while uploading
+    // Local blob URL is used for the preview throughout — it stays valid
+    // until the page unmounts. We deliberately do NOT swap to the
+    // /content/uploads/… path after the API call because Vercel hasn't
+    // rebuilt yet at that moment, so that URL would 404 in the preview.
+    // The stored path on hiddenCover is what gets written to the post.
     const blobUrl = URL.createObjectURL(file);
     setCoverPreview(blobUrl);
     try {
@@ -431,11 +435,12 @@ function renderEditor(existing) {
         body: JSON.stringify({ dataBase64, contentType, filename }),
       });
       hiddenCover.value = resp.path;
-      setCoverPreview(resp.path);
-      toast('Cover uploaded', 'success');
+      toast('Cover uploaded. It will appear on the live site once the next build finishes.', 'success', 5000);
     } catch (err) {
       toast('Upload failed: ' + err.message, 'error');
-      setCoverPreview(hiddenCover.value || f.cover || '');
+      // Roll back to whatever was previously set (or clear it)
+      const fallback = hiddenCover.value || f.cover || '';
+      setCoverPreview(fallback);
     }
   }
 
@@ -910,7 +915,11 @@ function insertImage(editor) {
         body: JSON.stringify({ dataBase64, contentType, filename }),
       });
       editor.chain().focus().setImage({ src: resp.path, alt: filename.replace(/\.[^.]+$/, '') }).run();
-      toast('Image inserted', 'success');
+      // Same race condition as cover uploads — the editor will show a
+      // broken-image icon for ~30 seconds until Vercel finishes the
+      // rebuild triggered by the upload commit. After that the inline
+      // image resolves. Set expectations rather than leave it silent.
+      toast('Image inserted. It may show as broken in the editor for ~30 seconds while the site rebuilds.', 'success', 6000);
     } catch (err) {
       toast('Upload failed: ' + err.message, 'error');
     }
