@@ -12,7 +12,7 @@ const SITE = {
 // IMPORTANT: bump this whenever the ?v= in assets/css/main.css changes,
 // so generated /news/* pages stay in sync with the rest of the site and
 // browsers don't keep a stale cached stylesheet from a previous build.
-const CSS_VERSION = '13';
+const CSS_VERSION = '14';
 
 function escapeAttr(s) {
   return String(s || '')

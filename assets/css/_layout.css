@@ -35,6 +35,14 @@ main > div {
   padding-right: var(--page-gutter);
 }
 
+/* Data-include wrapper divs are markers for the client-side component
+   loader — they shouldn't impose their own gutter/padding on the injected
+   content (CTA banner, footer, etc.). display:contents removes them from
+   the layout so their children behave as direct children of main. */
+main > div[data-include] {
+  display: contents;
+}
+
 main > header {
   max-width: none;
   padding: 0;

@@ -9,6 +9,8 @@ section[aria-labelledby="cta-heading"] {
   text-align: center;
   padding-top: var(--space-5xl);
   padding-bottom: var(--space-5xl);
+  padding-left: var(--page-gutter);
+  padding-right: var(--page-gutter);
 }
 
 /* Richer gradient */
