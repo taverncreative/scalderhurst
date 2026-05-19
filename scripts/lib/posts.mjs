@@ -17,7 +17,7 @@ export const CATEGORIES = {
 
 const CATEGORY_ORDER = ['stock-offers', 'company-updates', 'industry-insights'];
 
-const REQUIRED_FIELDS = ['title', 'category', 'date', 'cover', 'cover_alt'];
+const REQUIRED_FIELDS = ['title', 'category', 'date'];
 
 /**
  * Truncate text at the nearest word boundary below maxLen.
@@ -138,8 +138,8 @@ export async function loadPosts(contentDir) {
       date: dateObj,
       modifiedDate,
       excerpt,
-      cover: String(fm.cover).trim(),
-      coverAlt: String(fm.cover_alt).trim(),
+      cover: fm.cover ? String(fm.cover).trim() : '',
+      coverAlt: fm.cover_alt ? String(fm.cover_alt).trim() : '',
       tags: Array.isArray(fm.tags) ? fm.tags.map(t => String(t).trim()).filter(Boolean) : [],
       body,
       plainText,

@@ -36,14 +36,16 @@ function formatDate(d) {
 
 export function postCard(post, images) {
   const url = `/news/${post.slug}/`;
-  return `        <article>
-          <a href="${url}" aria-label="Read: ${esc(post.title)}">
+  const cover = images
+    ? `          <a href="${url}" aria-label="Read: ${esc(post.title)}">
             <img src="${images.webp640}"
                  srcset="${images.webp640} 640w, ${images.webp1024} 1024w, ${images.webp1600} 1600w"
                  sizes="(min-width: 64rem) 22rem, (min-width: 48rem) 50vw, 100vw"
-                 alt="${esc(post.coverAlt)}" loading="lazy" width="640" height="336">
-          </a>
-          <span class="card-badge card-badge--${post.category.slug}">${esc(post.category.label)}</span>
+                 alt="${esc(post.coverAlt || post.title)}" loading="lazy" width="640" height="336">
+          </a>\n`
+    : '';
+  return `        <article>
+${cover}          <span class="card-badge card-badge--${post.category.slug}">${esc(post.category.label)}</span>
           <h3><a href="${url}">${esc(post.title)}</a></h3>
           <p class="card-meta"><time datetime="${post.date.toISOString()}">${formatDate(post.date)}</time> &middot; ${post.readingMinutes} min read</p>
           <p>${esc(post.excerpt)}</p>
@@ -201,7 +203,7 @@ ${head}
 
 
     <!-- HERO -->
-    <header class="hero hero--dark post-hero" aria-labelledby="hero-heading" style="background-image: url('${images.webp1600}');">
+    <header class="hero${images ? ' hero--dark post-hero' : ' post-hero'}" aria-labelledby="hero-heading"${images ? ` style="background-image: url('${images.webp1600}');"` : ''}>
       <div class="container">
         <span class="text-overline">${esc(post.category.label)}</span>
         <h1 id="hero-heading">${esc(post.title)}</h1>

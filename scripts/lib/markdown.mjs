@@ -55,7 +55,7 @@ md.renderer.rules.link_open = function(tokens, idx, options, env, self) {
 const sanitizeOptions = {
   allowedTags: [
     'h2', 'h3', 'h4', 'p', 'a', 'ul', 'ol', 'li',
-    'blockquote', 'strong', 'em', 'code', 'pre',
+    'blockquote', 'strong', 'em', 'u', 'code', 'pre',
     'img', 'figure', 'figcaption', 'br', 'hr',
     'table', 'thead', 'tbody', 'tr', 'th', 'td',
     'span', 'div',

@@ -50,6 +50,11 @@ async function main() {
   const imagesByPost = new Map();
 
   for (const post of posts) {
+    if (!post.cover) {
+      // Cover is optional — posts without one render as text-only.
+      imagesByPost.set(post.slug, null);
+      continue;
+    }
     const images = await processCover(post, {
       siteRoot: SITE_ROOT,
       cache: imageCache,

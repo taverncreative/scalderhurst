@@ -20,6 +20,7 @@ import StarterKit from 'https://cdn.jsdelivr.net/npm/@tiptap/starter-kit@2.11.7/
 import Link from 'https://cdn.jsdelivr.net/npm/@tiptap/extension-link@2.11.7/+esm';
 import ImageExt from 'https://cdn.jsdelivr.net/npm/@tiptap/extension-image@2.11.7/+esm';
 import Placeholder from 'https://cdn.jsdelivr.net/npm/@tiptap/extension-placeholder@2.11.7/+esm';
+import Underline from 'https://cdn.jsdelivr.net/npm/@tiptap/extension-underline@2.11.7/+esm';
 
 // ---------- State ---------------------------------------------
 
@@ -473,7 +474,6 @@ function renderEditor(existing) {
     id: 'cover_alt',
     value: f.cover_alt || '',
     placeholder: 'Describe the image — used for screen readers and SEO',
-    required: true,
   });
 
   // Editor container
@@ -620,7 +620,9 @@ function renderEditor(existing) {
     ]),
 
     el('div', { class: 'panel' }, [
-      el('h2', {}, 'Cover image'),
+      el('h2', {}, 'Cover image (optional)'),
+      el('p', { style: { color: 'var(--admin-text-muted)', marginTop: '0', fontSize: '0.9rem' } },
+        'Posts without a cover render as a text-only hero. If you do add one, please include alt text for screen readers.'),
       el('div', { class: 'cover' }, [
         coverBlock,
         el('div', { class: 'cover__actions' }, [
@@ -684,7 +686,12 @@ function renderEditor(existing) {
   async function handleSave(asDraft) {
     if (!state.editor) return;
     const cover = hiddenCover.value.trim();
-    if (!cover) { toast('Please upload a cover image first.', 'error'); return; }
+    // Cover is optional. If provided, require alt text for accessibility.
+    if (cover && !coverAltInput.value.trim()) {
+      toast('Please add alt text for the cover image (for screen readers).', 'error');
+      coverAltInput.focus();
+      return;
+    }
 
     // Resolve category (handles the custom "Other" option)
     let categoryValue = categorySelect.value;
@@ -773,6 +780,7 @@ function initEditor(container, toolbar, initialHtml) {
       }),
       ImageExt.configure({ inline: false }),
       Placeholder.configure({ placeholder: 'Write your post…' }),
+      Underline,
     ],
     content: initialHtml || '',
     onUpdate: () => {
@@ -803,6 +811,9 @@ function initEditor(container, toolbar, initialHtml) {
     { label: 'I', title: 'Italic',
       cmd: () => editor.chain().focus().toggleItalic().run(),
       isActive: () => editor.isActive('italic') },
+    { label: 'U', title: 'Underline',
+      cmd: () => editor.chain().focus().toggleUnderline().run(),
+      isActive: () => editor.isActive('underline') },
     { sep: true },
     { label: 'H2', title: 'Heading 2',
       cmd: () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
@@ -856,6 +867,7 @@ function updateToolbarState(editor, toolbar) {
     switch (title) {
       case 'Bold': active = editor.isActive('bold'); break;
       case 'Italic': active = editor.isActive('italic'); break;
+      case 'Underline': active = editor.isActive('underline'); break;
       case 'Heading 2': active = editor.isActive('heading', { level: 2 }); break;
       case 'Heading 3': active = editor.isActive('heading', { level: 3 }); break;
       case 'Bullet list': active = editor.isActive('bulletList'); break;

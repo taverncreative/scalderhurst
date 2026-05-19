@@ -37,8 +37,8 @@ export function postHead(post, images) {
   const description = post.excerpt;
   const title = `${post.title} | ${SITE.name}`;
 
-  const ogImage = absoluteUrl(images.jpg1200);
-  const ogImageWebp = absoluteUrl(images.webp1600);
+  const ogImage = images ? absoluteUrl(images.jpg1200) : null;
+  const ogImageWebp = images ? absoluteUrl(images.webp1600) : null;
   const iso = post.date.toISOString();
   const isoMod = post.modifiedDate.toISOString();
 
@@ -52,7 +52,7 @@ export function postHead(post, images) {
     mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
     headline: post.title.length > 110 ? post.title.slice(0, 107) + '…' : post.title,
     description,
-    image: [ogImageWebp, ogImage],
+    ...(ogImage ? { image: [ogImageWebp, ogImage] } : {}),
     datePublished: iso,
     dateModified: isoMod,
     author: { '@type': 'Organization', name: SITE.name, url: SITE.url },
@@ -86,11 +86,11 @@ export function postHead(post, images) {
   <!-- Open Graph -->
   <meta property="og:title" content="${escapeAttr(title)}">
   <meta property="og:description" content="${escapeAttr(description)}">
-  <meta property="og:url" content="${canonical}">
+  <meta property="og:url" content="${canonical}">${ogImage ? `
   <meta property="og:image" content="${ogImage}">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="${escapeAttr(post.coverAlt)}">
+  <meta property="og:image:alt" content="${escapeAttr(post.coverAlt || post.title)}">` : ''}
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="${SITE.name}">
   <meta property="article:published_time" content="${iso}">
