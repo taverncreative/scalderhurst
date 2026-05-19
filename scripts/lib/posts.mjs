@@ -80,12 +80,29 @@ export async function loadPosts(contentDir) {
     // Skip future-dated posts
     if (dateObj > now) continue;
 
-    // Resolve category
+    // Resolve category — canonical slug from CATEGORIES, otherwise
+    // accept an ad-hoc custom category. Custom categories get title-cased
+    // labels and a derived slug + anchor so they integrate with the
+    // archive grouping and JSON-LD.
     const categoryValue = String(fm.category).trim();
-    const category = CATEGORIES[categoryValue];
+    let category = CATEGORIES[categoryValue];
     if (!category) {
-      errors.push(`  ${filename}: unknown category "${categoryValue}" (valid: ${Object.keys(CATEGORIES).join(', ')})`);
-      continue;
+      const customSlug = slugify(categoryValue);
+      if (!customSlug) {
+        errors.push(`  ${filename}: empty / invalid category "${categoryValue}"`);
+        continue;
+      }
+      const titleCased = categoryValue
+        .replace(/[-_]+/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .replace(/\b\w/g, (ch) => ch.toUpperCase());
+      category = {
+        slug: customSlug,
+        label: titleCased || categoryValue,
+        anchor: `${customSlug}-heading`,
+        custom: true,
+      };
     }
 
     // Derive slug
@@ -143,7 +160,9 @@ export async function loadPosts(contentDir) {
 }
 
 /**
- * Group published posts by category in the canonical UI order.
+ * Group published posts by category in the canonical UI order, with
+ * any custom (non-canonical) categories appended after the canonical
+ * three in alphabetical order.
  */
 export function groupByCategory(posts) {
   const groups = {};
@@ -153,10 +172,20 @@ export function groupByCategory(posts) {
       posts: [],
     };
   }
+  // Collect custom categories on the fly
+  const customOrder = [];
   for (const post of posts) {
-    groups[post.category.slug].posts.push(post);
+    const k = post.category.slug;
+    if (!groups[k]) {
+      groups[k] = { category: post.category, posts: [] };
+      customOrder.push(k);
+    }
+    groups[k].posts.push(post);
   }
-  return CATEGORY_ORDER.map(key => groups[key]);
+  customOrder.sort((a, b) =>
+    groups[a].category.label.localeCompare(groups[b].category.label)
+  );
+  return [...CATEGORY_ORDER, ...customOrder].map((key) => groups[key]);
 }
 
 /**

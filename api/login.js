@@ -7,7 +7,7 @@
  *   timing consistent.
  * - On success: issues a 24h HTTP-only + SameSite=Strict JWT cookie.
  */
-import { verifyPassword, signJwt, sessionCookie } from '../lib/auth.js';
+import { verifyPassword, signJwt, sessionCookie, getCurrentPasswordHash } from '../lib/auth.js';
 import { checkLimit, recordFailure, reset, clientIp } from '../lib/rate-limit.js';
 
 const LOGIN_LIMIT = { windowMs: 15 * 60 * 1000, max: 10 };
@@ -33,11 +33,11 @@ export default async function handler(req, res) {
   }
 
   const adminEmail = process.env.ADMIN_EMAIL;
-  const passwordHash = process.env.ADMIN_PASSWORD_HASH;
   const jwtSecret = process.env.JWT_SECRET;
+  const current = await getCurrentPasswordHash();
 
-  if (!adminEmail || !passwordHash || !jwtSecret) {
-    console.error('[api/login] Missing env config: ADMIN_EMAIL, ADMIN_PASSWORD_HASH, JWT_SECRET');
+  if (!adminEmail || !current || !jwtSecret) {
+    console.error('[api/login] Missing config: ADMIN_EMAIL, ADMIN_PASSWORD_HASH (or stored hash file), JWT_SECRET');
     return res.status(500).json({ error: 'Server is not configured. Please contact the site administrator.' });
   }
 
@@ -45,7 +45,7 @@ export default async function handler(req, res) {
   const expectedEmail = adminEmail.trim().toLowerCase();
 
   // Always verify password (even if email wrong) to keep timing consistent.
-  const passOk = await verifyPassword(String(password), passwordHash);
+  const passOk = await verifyPassword(String(password), current.hash);
   const emailOk = submittedEmail === expectedEmail;
 
   if (!emailOk || !passOk) {

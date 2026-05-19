@@ -278,6 +278,13 @@ textarea { min-height: 4.5rem; resize: vertical; }
   display: grid;
   gap: 0.6rem;
 }
+.cover > div.is-drop-target,
+.cover > .is-drop-target {
+  outline: 2px dashed var(--admin-primary);
+  outline-offset: 4px;
+  background-color: rgba(48, 88, 140, 0.04);
+  transition: outline-color 0.15s ease, background-color 0.15s ease;
+}
 .cover__preview {
   display: block;
   max-width: 100%;

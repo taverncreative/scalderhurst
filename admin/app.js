@@ -116,7 +116,15 @@ function slugify(s) {
 
 function categoryLabel(value) {
   const c = CATEGORIES.find((x) => x.value === value);
-  return c ? c.label : value;
+  if (c) return c.label;
+  // Custom category — derive a human label from the slug.
+  return String(value || '')
+    .replace(/[-_]+/g, ' ')
+    .replace(/\b\w/g, (ch) => ch.toUpperCase());
+}
+
+function isCanonicalCategory(value) {
+  return CATEGORIES.some((c) => c.value === value);
 }
 
 /**
@@ -153,6 +161,10 @@ function topbar() {
     ]),
     el('div', { class: 'topbar__user' }, [
       el('span', {}, state.session && state.session.email ? state.session.email : ''),
+      el('button', {
+        class: 'btn btn--ghost btn--small',
+        onclick: () => openChangePassword(),
+      }, 'Change password'),
       el('button', {
         class: 'btn btn--ghost btn--small',
         onclick: handleLogout,
@@ -267,6 +279,98 @@ function renderList() {
   ]));
 }
 
+// ---------- Change password -----------------------------------
+
+function openChangePassword() {
+  if (state.editor) { state.editor.destroy(); state.editor = null; }
+  state.view = 'change-password';
+  renderChangePassword();
+}
+
+function renderChangePassword() {
+  const currentInput = el('input', { type: 'password', name: 'current', id: 'pw-current', required: true, autocomplete: 'current-password' });
+  const newInput = el('input', { type: 'password', name: 'new', id: 'pw-new', required: true, autocomplete: 'new-password', minlength: '10' });
+  const confirmInput = el('input', { type: 'password', name: 'confirm', id: 'pw-confirm', required: true, autocomplete: 'new-password', minlength: '10' });
+
+  const submitBtn = el('button', {
+    type: 'submit',
+    class: 'btn btn--primary',
+  }, 'Update password');
+
+  const form = el('form', {
+    onsubmit: async (e) => {
+      e.preventDefault();
+      const currentPassword = currentInput.value;
+      const newPassword = newInput.value;
+      const confirm = confirmInput.value;
+      if (newPassword.length < 10) {
+        toast('New password must be at least 10 characters.', 'error');
+        return;
+      }
+      if (newPassword !== confirm) {
+        toast('New password and confirmation do not match.', 'error');
+        return;
+      }
+      if (newPassword === currentPassword) {
+        toast('New password must be different from the current one.', 'error');
+        return;
+      }
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Updating…';
+      try {
+        const res = await api('/api/change-password', {
+          method: 'POST',
+          body: JSON.stringify({ currentPassword, newPassword }),
+        });
+        toast(res.message || 'Password updated.', 'success', 6000);
+        currentInput.value = '';
+        newInput.value = '';
+        confirmInput.value = '';
+        loadList();
+      } catch (err) {
+        toast(err.message, 'error', 6000);
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Update password';
+      }
+    },
+  }, [
+    el('div', { class: 'form-row' }, [
+      el('label', { for: 'pw-current' }, 'Current password'),
+      currentInput,
+    ]),
+    el('div', { class: 'form-row' }, [
+      el('label', { for: 'pw-new' }, 'New password'),
+      newInput,
+      el('div', { class: 'form-row__help' }, 'At least 10 characters. Mix letters and numbers for safety.'),
+    ]),
+    el('div', { class: 'form-row' }, [
+      el('label', { for: 'pw-confirm' }, 'Confirm new password'),
+      confirmInput,
+    ]),
+    el('div', { class: 'save-bar' }, [
+      el('div', { style: { flex: '1' } }),
+      el('button', {
+        type: 'button',
+        class: 'btn',
+        onclick: () => loadList(),
+      }, 'Cancel'),
+      submitBtn,
+    ]),
+  ]);
+
+  mount(el('div', {}, [
+    topbar(),
+    el('div', { class: 'shell' }, [
+      el('div', { class: 'panel' }, [
+        el('h2', {}, 'Change password'),
+        el('p', { style: { color: 'var(--admin-text-muted)', marginTop: '0' } },
+          'The new password takes effect immediately and is stored securely (scrypt-hashed) in the site repository.'),
+        form,
+      ]),
+    ]),
+  ]));
+}
+
 // ---------- Editor --------------------------------------------
 
 function renderEditor(existing) {
@@ -290,7 +394,7 @@ function renderEditor(existing) {
     class: 'cover__preview',
     alt: 'Cover preview',
   });
-  const coverPlaceholder = el('div', { class: 'cover__placeholder' }, 'No cover image yet — click Upload to add one.');
+  const coverPlaceholder = el('div', { class: 'cover__placeholder' }, 'Drop an image here, or click Upload below.');
   const coverBlock = el('div', {}, [coverPlaceholder]);
 
   function setCoverPreview(src) {
@@ -305,6 +409,35 @@ function renderEditor(existing) {
   }
   if (f.cover) setCoverPreview(f.cover);
 
+  // Shared cover upload pipeline — used by both the file picker and drop target.
+  async function uploadCoverFile(file) {
+    if (!file) return;
+    if (!/^image\/(jpeg|png|webp|avif|pjpeg)$/i.test(file.type)) {
+      toast('Cover must be a JPEG, PNG, WebP, or AVIF image.', 'error');
+      return;
+    }
+    if (file.size > 3 * 1024 * 1024) {
+      toast('Cover image must be under 3 MB', 'error');
+      return;
+    }
+    // Immediate local preview while uploading
+    const blobUrl = URL.createObjectURL(file);
+    setCoverPreview(blobUrl);
+    try {
+      const { dataBase64, contentType, filename } = await readFileAsBase64(file);
+      const resp = await api('/api/uploads', {
+        method: 'POST',
+        body: JSON.stringify({ dataBase64, contentType, filename }),
+      });
+      hiddenCover.value = resp.path;
+      setCoverPreview(resp.path);
+      toast('Cover uploaded', 'success');
+    } catch (err) {
+      toast('Upload failed: ' + err.message, 'error');
+      setCoverPreview(hiddenCover.value || f.cover || '');
+    }
+  }
+
   // Hidden file input for cover upload
   const coverFileInput = el('input', {
     type: 'file',
@@ -312,31 +445,25 @@ function renderEditor(existing) {
     style: { display: 'none' },
     onchange: async () => {
       const file = coverFileInput.files && coverFileInput.files[0];
-      if (!file) return;
-      if (file.size > 3 * 1024 * 1024) {
-        toast('Cover image must be under 3 MB', 'error');
-        coverFileInput.value = '';
-        return;
-      }
-      // Immediate local preview while uploading
-      const blobUrl = URL.createObjectURL(file);
-      setCoverPreview(blobUrl);
-      try {
-        const { dataBase64, contentType, filename } = await readFileAsBase64(file);
-        const resp = await api('/api/uploads', {
-          method: 'POST',
-          body: JSON.stringify({ dataBase64, contentType, filename }),
-        });
-        hiddenCover.value = resp.path;
-        setCoverPreview(resp.path);
-        toast('Cover uploaded', 'success');
-      } catch (err) {
-        toast('Upload failed: ' + err.message, 'error');
-        setCoverPreview(f.cover || '');
-      } finally {
-        coverFileInput.value = '';
-      }
+      await uploadCoverFile(file);
+      coverFileInput.value = '';
     },
+  });
+
+  // Drag-and-drop on the cover block
+  coverBlock.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'copy';
+    coverBlock.classList.add('is-drop-target');
+  });
+  coverBlock.addEventListener('dragleave', () => {
+    coverBlock.classList.remove('is-drop-target');
+  });
+  coverBlock.addEventListener('drop', async (e) => {
+    e.preventDefault();
+    coverBlock.classList.remove('is-drop-target');
+    const file = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    await uploadCoverFile(file);
   });
 
   const hiddenCover = el('input', { type: 'hidden', name: 'cover', value: f.cover || '' });
@@ -375,13 +502,37 @@ function renderEditor(existing) {
     if (!slugTouched) slugInput.value = slugify(titleInput.value);
   });
 
-  const categorySelect = el('select', { name: 'category', id: 'category', required: true },
-    CATEGORIES.map((c) => {
+  const startsCustom = f.category && !isCanonicalCategory(f.category);
+
+  const categorySelect = el('select', { name: 'category', id: 'category', required: true }, [
+    ...CATEGORIES.map((c) => {
       const option = el('option', { value: c.value }, c.label);
-      if (c.value === f.category) option.selected = true;
+      if (!startsCustom && c.value === f.category) option.selected = true;
       return option;
-    })
-  );
+    }),
+    (() => {
+      const opt = el('option', { value: '__other__' }, 'Other (custom)…');
+      if (startsCustom) opt.selected = true;
+      return opt;
+    })(),
+  ]);
+
+  const customCategoryInput = el('input', {
+    type: 'text',
+    id: 'category_custom',
+    placeholder: 'e.g. Acquisitions, Sustainability',
+    value: startsCustom ? categoryLabel(f.category) : '',
+    style: {
+      marginTop: '0.5rem',
+      display: startsCustom ? 'block' : 'none',
+    },
+  });
+
+  categorySelect.addEventListener('change', () => {
+    const showCustom = categorySelect.value === '__other__';
+    customCategoryInput.style.display = showCustom ? 'block' : 'none';
+    if (showCustom) customCategoryInput.focus();
+  });
 
   const dateInput = el('input', {
     type: 'datetime-local',
@@ -391,12 +542,9 @@ function renderEditor(existing) {
     value: toLocalDateTimeInput(f.date),
   });
 
-  const draftCheckbox = el('input', {
-    type: 'checkbox',
-    name: 'draft',
-    id: 'draft',
-    checked: f.draft !== false,
-  });
+  // Draft state lives in a single variable instead of a checkbox — we expose
+  // it through the "Save as draft" / "Save changes" buttons in the save bar.
+  let draftState = f.draft !== false;
 
   const excerptInput = el('textarea', {
     name: 'excerpt',
@@ -414,11 +562,17 @@ function renderEditor(existing) {
   });
 
   // Save / delete / cancel buttons
-  const saveBtn = el('button', {
+  const publishBtn = el('button', {
     type: 'button',
     class: 'btn btn--primary',
-    onclick: () => handleSave(),
+    onclick: () => handleSave(false),
   }, existing ? 'Save changes' : 'Create post');
+
+  const saveDraftBtn = el('button', {
+    type: 'button',
+    class: 'btn',
+    onclick: () => handleSave(true),
+  }, 'Save as draft');
 
   const cancelBtn = el('button', {
     type: 'button',
@@ -453,21 +607,15 @@ function renderEditor(existing) {
         el('div', {}, [
           el('label', { for: 'category' }, 'Category'),
           categorySelect,
+          customCategoryInput,
+          el('div', { class: 'form-row__help' }, 'Pick "Other (custom)…" to type your own category — it will appear as a new section on the News archive.'),
         ]),
       ]),
 
-      el('div', { class: 'form-row--split', style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1.1rem' } }, [
-        el('div', {}, [
-          el('label', { for: 'date' }, 'Publish date'),
-          dateInput,
-          el('div', { class: 'form-row__help' }, 'Future dates are scheduled — not published until this time.'),
-        ]),
-        el('div', { style: { alignSelf: 'end' } }, [
-          el('label', { class: 'checkbox' }, [
-            draftCheckbox,
-            el('span', {}, 'Save as draft (not visible on site)'),
-          ]),
-        ]),
+      el('div', { class: 'form-row' }, [
+        el('label', { for: 'date' }, 'Publish date'),
+        dateInput,
+        el('div', { class: 'form-row__help' }, 'Future dates are scheduled — not published until this time. Use "Save as draft" to keep a post hidden regardless of date.'),
       ]),
     ]),
 
@@ -518,7 +666,8 @@ function renderEditor(existing) {
       deleteBtn,
       el('div', { style: { flex: '1' } }),
       cancelBtn,
-      saveBtn,
+      saveDraftBtn,
+      publishBtn,
     ]),
   ]);
 
@@ -532,17 +681,29 @@ function renderEditor(existing) {
 
   // ---- internal handlers wired to form elements ----
 
-  async function handleSave() {
+  async function handleSave(asDraft) {
     if (!state.editor) return;
     const cover = hiddenCover.value.trim();
     if (!cover) { toast('Please upload a cover image first.', 'error'); return; }
 
+    // Resolve category (handles the custom "Other" option)
+    let categoryValue = categorySelect.value;
+    if (categoryValue === '__other__') {
+      categoryValue = customCategoryInput.value.trim();
+      if (!categoryValue) {
+        toast('Please enter a name for your custom category.', 'error');
+        customCategoryInput.focus();
+        return;
+      }
+    }
+
+    draftState = !!asDraft;
     const payload = {
       title: titleInput.value.trim(),
       slug: slugInput.value.trim() || slugify(titleInput.value),
-      category: categorySelect.value,
+      category: categoryValue,
       date: new Date(dateInput.value).toISOString(),
-      draft: draftCheckbox.checked,
+      draft: draftState,
       excerpt: excerptInput.value.trim(),
       cover,
       cover_alt: coverAltInput.value.trim(),
@@ -550,29 +711,41 @@ function renderEditor(existing) {
       body: state.editor.getHTML(),
     };
 
-    saveBtn.disabled = true;
-    saveBtn.textContent = 'Saving…';
+    const clicked = asDraft ? saveDraftBtn : publishBtn;
+    const originalLabel = clicked.textContent;
+    clicked.disabled = true;
+    clicked.textContent = 'Saving…';
+    saveDraftBtn.disabled = true;
+    publishBtn.disabled = true;
     try {
       if (existing) {
         await api(`/api/posts/${encodeURIComponent(existing.filename)}`, {
           method: 'PUT',
           body: JSON.stringify({ ...payload, sha: existing.sha }),
         });
-        toast('Saved. The site will rebuild in ~30 seconds.', 'success', 5000);
+        toast(
+          asDraft ? 'Draft saved.' : 'Saved. The site will rebuild in ~30 seconds.',
+          'success', 5000
+        );
       } else {
         await api('/api/posts', {
           method: 'POST',
           body: JSON.stringify(payload),
         });
-        toast('Post created. The site will rebuild in ~30 seconds.', 'success', 5000);
+        toast(
+          asDraft ? 'Draft created.' : 'Post created. The site will rebuild in ~30 seconds.',
+          'success', 5000
+        );
       }
       state.editor.destroy();
       state.editor = null;
       await loadList();
     } catch (err) {
       toast(err.message, 'error', 6000);
-      saveBtn.disabled = false;
-      saveBtn.textContent = existing ? 'Save changes' : 'Create post';
+      clicked.disabled = false;
+      clicked.textContent = originalLabel;
+      saveDraftBtn.disabled = false;
+      publishBtn.disabled = false;
     }
   }
 }

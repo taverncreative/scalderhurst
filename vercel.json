@@ -68,6 +68,7 @@
     }
   ],
   "rewrites": [
-    { "source": "/content/posts/:path*", "destination": "/404" }
+    { "source": "/content/posts/:path*", "destination": "/404" },
+    { "source": "/content/.admin/:path*", "destination": "/404" }
   ]
 }
