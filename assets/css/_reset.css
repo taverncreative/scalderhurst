@@ -20,6 +20,24 @@ body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  /* Belt-and-braces against any element that escapes its container —
+     html already has overflow-x:hidden but mobile Safari sometimes
+     respects this on body more reliably for sticky-header layouts. */
+}
+
+img, svg, video, picture, iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Tables can blow out narrow viewports — let editors paste a wide one
+   into a blog post without breaking the layout. Wrapping not done at
+   the element level because that would require markup changes. */
+table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
 }
 
 img,

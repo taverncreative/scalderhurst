@@ -10,6 +10,7 @@ header[role="banner"] {
 
 header[role="banner"] .container {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   max-width: none;
@@ -118,14 +119,42 @@ nav[aria-label="Primary"] a:hover {
   color: var(--color-primary);
 }
 
-/* Header contact group — phone stacked above the CTA */
+/* Header contact group — phone stacked above the CTA.
+   Hidden on mobile (the same buttons appear at the top of the hamburger
+   dropdown via .nav-mobile-cta); revealed on desktop in the media query
+   block further down. */
 .header-contact {
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: stretch;
   gap: 0.25rem;
   flex-shrink: 0;
   order: 1;
+}
+
+/* Mobile CTA group — shown at the top of the open hamburger dropdown only.
+   Hidden on desktop because the header-contact pill carries the same calls. */
+.nav-mobile-cta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: 0 0 var(--space-md);
+  margin-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.nav-mobile-cta .header-phone,
+.nav-mobile-cta .btn-primary {
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: var(--weight-medium);
+}
+
+.nav-mobile-cta .header-phone:hover,
+.nav-mobile-cta .btn-primary:hover {
+  color: #ffffff;
 }
 
 .header-phone {
@@ -212,7 +241,12 @@ nav[aria-label="Primary"] a:hover {
   }
 
   .header-contact {
+    display: flex;
     order: 0;
+  }
+
+  .nav-mobile-cta {
+    display: none;
   }
 }
 
