@@ -118,12 +118,40 @@ nav[aria-label="Primary"] a:hover {
   color: var(--color-primary);
 }
 
+/* Header contact group — phone stacked above the CTA */
+.header-contact {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.25rem;
+  flex-shrink: 0;
+  order: 1;
+}
+
+.header-phone {
+  display: block;
+  padding: 0.5rem 1rem;
+  background-color: var(--color-brand);
+  color: #ffffff;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  text-decoration: none;
+  text-align: center;
+  white-space: nowrap;
+  line-height: 1.2;
+  border-radius: var(--radius-sm);
+}
+
+.header-phone:hover {
+  background-color: var(--color-brand-dark);
+  color: #ffffff;
+}
+
 /* Header CTA — visible on mobile next to hamburger */
 .header-cta {
   flex-shrink: 0;
   padding: 0.5rem 1rem;
   font-size: var(--text-sm);
-  order: 1;
 }
 
 /* ========================================
@@ -180,7 +208,7 @@ nav[aria-label="Primary"] a:hover {
     line-height: 1.2;
   }
 
-  .header-cta {
+  .header-contact {
     order: 0;
   }
 }
