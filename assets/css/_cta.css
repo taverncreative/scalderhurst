@@ -60,3 +60,21 @@ section[aria-labelledby="cta-heading"] p {
   font-size: var(--text-lg);
   max-width: 50ch;
 }
+
+/* CTA button — full-width on mobile so the tap target spans the section,
+   capped at a comfortable width on tablet and up, centred either way. */
+section[aria-labelledby="cta-heading"] .btn-primary,
+section[aria-labelledby="cta-heading"] .btn-secondary {
+  display: inline-flex;
+  width: 100%;
+  max-width: 20rem;
+  justify-content: center;
+}
+
+@media (min-width: 48rem) {
+  section[aria-labelledby="cta-heading"] .btn-primary,
+  section[aria-labelledby="cta-heading"] .btn-secondary {
+    width: auto;
+    max-width: none;
+  }
+}
