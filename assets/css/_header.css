@@ -155,10 +155,13 @@ nav[aria-label="Primary"] a:hover {
 }
 
 /* ========================================
-   DESKTOP — 64rem (1024px) and up
-   Nav becomes horizontal, hamburger hidden
+   DESKTOP — 80rem (1280px) and up
+   Nav becomes horizontal, hamburger hidden.
+   Breakpoint raised from 64rem because the full primary nav (9 items)
+   plus the new phone+CTA contact group needs ~1200px of horizontal space
+   before it stops overlapping the logo.
    ======================================== */
-@media (min-width: 64rem) {
+@media (min-width: 80rem) {
   header[role="banner"] .container {
     flex-wrap: nowrap;
     padding: var(--space-md) var(--space-lg);
@@ -213,8 +216,8 @@ nav[aria-label="Primary"] a:hover {
   }
 }
 
-/* ——— Wide desktop (80rem / 1280px) ——— */
-@media (min-width: 80rem) {
+/* ——— Wide desktop (90rem / 1440px) ——— */
+@media (min-width: 90rem) {
   header[role="banner"] .container {
     gap: var(--space-lg);
   }
@@ -228,8 +231,8 @@ nav[aria-label="Primary"] a:hover {
   }
 }
 
-/* ——— Extra wide (90rem / 1440px) ——— */
-@media (min-width: 90rem) {
+/* ——— Extra wide (100rem / 1600px) ——— */
+@media (min-width: 100rem) {
   header[role="banner"] img {
     height: 13rem;
   }
