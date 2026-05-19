@@ -255,6 +255,30 @@ section[aria-labelledby="why-heading"] > article h3 {
   margin-bottom: var(--space-2xl);
 }
 
+/* Story-photo — used in About → Our Story to showcase a portrait/group
+   image without cropping it to a banner aspect. Centred, capped width,
+   small italic caption beneath. */
+.story-photo {
+  margin: var(--space-2xl) auto;
+  max-width: 26rem;
+  text-align: center;
+}
+
+.story-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.story-photo figcaption {
+  margin-top: var(--space-sm);
+  font-size: var(--text-sm);
+  font-style: italic;
+  color: var(--color-text-muted);
+}
+
 @media (min-width: 48rem) {
   section[aria-labelledby="why-heading"] {
     display: grid;
