@@ -2,16 +2,16 @@
    Query string versions below cache-bust every partial whenever a
    stylesheet change lands. Bump the number in ALL lines on every edit. */
 
-@import '_tokens.css?v=14';
-@import '_reset.css?v=14';
-@import '_typography.css?v=14';
-@import '_layout.css?v=14';
-@import '_buttons.css?v=14';
-@import '_forms.css?v=14';
-@import '_header.css?v=14';
-@import '_hero.css?v=14';
-@import '_cards.css?v=14';
-@import '_cta.css?v=14';
-@import '_animations.css?v=14';
-@import '_footer.css?v=14';
-@import '_post.css?v=14';
+@import '_tokens.css?v=15';
+@import '_reset.css?v=15';
+@import '_typography.css?v=15';
+@import '_layout.css?v=15';
+@import '_buttons.css?v=15';
+@import '_forms.css?v=15';
+@import '_header.css?v=15';
+@import '_hero.css?v=15';
+@import '_cards.css?v=15';
+@import '_cta.css?v=15';
+@import '_animations.css?v=15';
+@import '_footer.css?v=15';
+@import '_post.css?v=15';
