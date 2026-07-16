@@ -9,6 +9,7 @@
   },
   "scripts": {
     "build": "node scripts/build.mjs",
+    "build:vercel": "node scripts/build.mjs && node scripts/prune-private.mjs",
     "dev": "node scripts/build.mjs && npx http-server -p 8080 -c-1 .",
     "build:watch": "node scripts/build.mjs --watch",
     "hash-password": "node scripts/hash-password.mjs"
