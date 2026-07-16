@@ -10,19 +10,23 @@ import { join } from 'node:path';
 const SITE_URL = 'https://www.scalderhurst.co.uk';
 
 const STATIC_URLS = [
-  { loc: '/',                             changefreq: 'weekly',  priority: '1.0' },
-  { loc: '/board-packaging/',             changefreq: 'monthly', priority: '0.8' },
-  { loc: '/conversion/',                  changefreq: 'monthly', priority: '0.8' },
-  { loc: '/warehousing-logistics/',       changefreq: 'monthly', priority: '0.8' },
-  { loc: '/industries/',                  changefreq: 'monthly', priority: '0.8' },
-  { loc: '/industries/food-packaging/',   changefreq: 'monthly', priority: '0.7' },
-  { loc: '/industries/printing/',         changefreq: 'monthly', priority: '0.7' },
-  { loc: '/industries/retail-packaging/', changefreq: 'monthly', priority: '0.7' },
-  { loc: '/resources/',                   changefreq: 'monthly', priority: '0.7' },
-  { loc: '/speciality/',                  changefreq: 'monthly', priority: '0.7' },
-  { loc: '/export/',                      changefreq: 'monthly', priority: '0.7' },
-  { loc: '/about/',                       changefreq: 'monthly', priority: '0.6' },
-  { loc: '/contact/',                     changefreq: 'yearly',  priority: '0.6' },
+  { loc: '/',                                  changefreq: 'weekly',  priority: '1.0' },
+  { loc: '/paper/',                            changefreq: 'monthly', priority: '0.8' },
+  { loc: '/board-packaging/',                  changefreq: 'monthly', priority: '0.8' },
+  { loc: '/conversion/',                       changefreq: 'monthly', priority: '0.8' },
+  { loc: '/warehousing-logistics/',            changefreq: 'monthly', priority: '0.8' },
+  { loc: '/industries/',                       changefreq: 'monthly', priority: '0.8' },
+  { loc: '/industries/food-packaging/',        changefreq: 'monthly', priority: '0.7' },
+  { loc: '/industries/printing/',              changefreq: 'monthly', priority: '0.7' },
+  { loc: '/industries/retail-packaging/',      changefreq: 'monthly', priority: '0.7' },
+  { loc: '/industries/carton-manufacturing/',  changefreq: 'monthly', priority: '0.7' },
+  { loc: '/resources/',                        changefreq: 'monthly', priority: '0.7' },
+  { loc: '/speciality/',                       changefreq: 'monthly', priority: '0.7' },
+  { loc: '/export/',                           changefreq: 'monthly', priority: '0.7' },
+  { loc: '/about/',                            changefreq: 'monthly', priority: '0.6' },
+  { loc: '/contact/',                          changefreq: 'yearly',  priority: '0.6' },
+  { loc: '/privacy-policy/',                   changefreq: 'yearly',  priority: '0.3' },
+  { loc: '/terms/',                            changefreq: 'yearly',  priority: '0.3' },
 ];
 
 function urlEntry({ loc, lastmod, changefreq, priority }) {

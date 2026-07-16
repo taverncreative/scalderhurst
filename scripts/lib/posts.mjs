@@ -1,7 +1,7 @@
 /**
  * Load, validate and sort blog posts from /content/posts/*.md.
  */
-import { readdir, readFile, stat } from 'node:fs/promises';
+import { readdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import matter from 'gray-matter';
 import readingTime from 'reading-time';
@@ -121,13 +121,14 @@ export async function loadPosts(contentDir) {
     const minutes = Math.max(1, Math.round(rt.minutes));
     const wordCount = rt.words;
 
-    // Last-modified date (fallback for schema)
-    const fileStat = await stat(filepath);
+    // Last-modified date (fallback for schema). Falls back to the publish
+    // date, NOT file mtime — mtime is the clone time on Vercel, which made
+    // sitemap lastmod / feed date_modified churn on every deploy.
     const modifiedDate = fm.updated instanceof Date
       ? fm.updated
       : fm.updated
         ? new Date(fm.updated)
-        : fileStat.mtime;
+        : dateObj;
 
     posts.push({
       filename,
