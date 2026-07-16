@@ -41,5 +41,9 @@ static files. `package.json` and dotfiles at the root are excluded by Vercel.
 | `GITHUB_REPO` | `owner/repo`, e.g. `taverncreative/scalderhurst` |
 | `GITHUB_BRANCH` | Optional, defaults to `main` |
 | `GIT_COMMITTER_NAME` / `GIT_COMMITTER_EMAIL` | Optional CMS commit identity |
+| `RESEND_API_KEY` | Resend API key for contact-form email delivery |
+| `CONTACT_TO_EMAIL` | Where enquiry emails are delivered (comma-separate for several) |
+| `CONTACT_FROM_EMAIL` | Verified Resend sender. Until scalderhurst.co.uk DNS is verified with Resend, use `onboarding@resend.dev` (test mode: delivers only to the Resend account owner's address) |
+| `CONTACT_CC_EMAIL` | Optional CC on enquiry emails |
 
 Secrets live only in Vercel env vars. Never commit them, never log them.

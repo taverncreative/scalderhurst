@@ -193,19 +193,10 @@
       <h2 id="form-heading">Send Us an Enquiry</h2>
       <p>Complete the form below and a member of our team will be in touch. We aim to respond within 24 hours.</p>
 
-      <form action="https://api.web3forms.com/submit" method="POST">
-
-        <!-- Web3Forms access key -->
-        <input type="hidden" name="access_key" value="[YOUR_WEB3FORMS_KEY]">
-
-        <!-- Success redirect -->
-        <input type="hidden" name="redirect" value="https://www.scalderhurst.co.uk/thank-you/">
-
-        <!-- Form identifier -->
-        <input type="hidden" name="form_name" value="Contact Form">
+      <form action="/api/contact" method="POST">
 
         <!-- Anti-spam honeypot -->
-        <input type="checkbox" name="botcheck" style="display:none;">
+        <input type="checkbox" name="botcheck" style="display:none;" tabindex="-1" aria-hidden="true">
 
         <!-- Name (required) -->
         <div>
