@@ -6,7 +6,12 @@
  */
 
 document.addEventListener('DOMContentLoaded', function () {
-  var includes = document.querySelectorAll('[data-include]');
+  // Includes are normally resolved at build time (scripts/lib/includes.mjs)
+  // and arrive pre-filled; only fetch placeholders that are still empty.
+  var includes = Array.prototype.filter.call(
+    document.querySelectorAll('[data-include]'),
+    function (el) { return el.innerHTML.trim() === ''; }
+  );
   var loaded = 0;
   var total = includes.length;
 

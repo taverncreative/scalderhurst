@@ -26,6 +26,7 @@ import { getImageCache, writeImageCache, processCover } from './lib/images.mjs';
 import { postPage, archivePage } from './lib/templates.mjs';
 import { writeSitemap } from './lib/sitemap.mjs';
 import { writeFeeds } from './lib/feeds.mjs';
+import { resolveIncludes } from './lib/includes.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -89,6 +90,10 @@ async function main() {
   const grouped = groupByCategory(posts);
   const archiveHtml = archivePage(grouped, imagesByPost);
   await writeFile(join(NEWS_DIR, 'index.html'), archiveHtml, 'utf-8');
+
+  // Resolve header/footer/CTA includes into the HTML (all pages, news included)
+  const resolved = await resolveIncludes(SITE_ROOT);
+  if (resolved) log(`resolved includes in ${resolved} page${resolved === 1 ? '' : 's'}`);
 
   // Sitemap
   await writeSitemap(posts, SITE_ROOT);
