@@ -46,3 +46,9 @@ form > div {
 form > div:last-of-type {
   margin-bottom: var(--space-xl);
 }
+
+/* Privacy note under the submit button — separated so it reads as a distinct
+   line rather than crowding the button. */
+.form-note {
+  margin-top: var(--space-lg);
+}
