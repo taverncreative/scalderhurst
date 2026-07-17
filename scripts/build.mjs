@@ -28,6 +28,7 @@ import { writeSitemap } from './lib/sitemap.mjs';
 import { writeFeeds } from './lib/feeds.mjs';
 import { resolveIncludes } from './lib/includes.mjs';
 import { processStaticImages } from './lib/static-images.mjs';
+import { bundleCss } from './lib/css.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -102,6 +103,10 @@ async function main() {
   // Resolve header/footer/CTA includes into the HTML (all pages, news included)
   const resolved = await resolveIncludes(SITE_ROOT);
   if (resolved) log(`resolved includes in ${resolved} page${resolved === 1 ? '' : 's'}`);
+
+  // Bundle + minify CSS, rewrite stylesheet links to the content-hashed bundle
+  const css = await bundleCss(SITE_ROOT);
+  log(`bundled CSS → main.min.css?v=${css.hash} (${Math.round(css.bytes / 1024)}KB, ${css.rewritten} pages)`);
 
   // Sitemap
   await writeSitemap(posts, SITE_ROOT);
