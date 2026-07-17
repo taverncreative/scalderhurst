@@ -12,7 +12,7 @@ const SITE = {
 // IMPORTANT: bump this whenever the ?v= in assets/css/main.css changes,
 // so generated /news/* pages stay in sync with the rest of the site and
 // browsers don't keep a stale cached stylesheet from a previous build.
-const CSS_VERSION = '16';
+const CSS_VERSION = '17';
 
 function escapeAttr(s) {
   return String(s || '')
@@ -113,10 +113,9 @@ ${articleTags ? articleTags + '\n' : ''}
   <link rel="icon" type="image/png" href="/favicon-32.png" sizes="32x32">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Fonts — self-hosted (faces in assets/css/_fonts.css) -->
+  <link rel="preload" href="/assets/fonts/inter-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/dm-serif-display-400-latin.woff2" as="font" type="font/woff2" crossorigin>
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="/assets/css/main.css?v=${CSS_VERSION}">
@@ -165,9 +164,9 @@ export function archiveHead() {
   <link rel="icon" type="image/png" href="/favicon-32.png" sizes="32x32">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Fonts — self-hosted (faces in assets/css/_fonts.css) -->
+  <link rel="preload" href="/assets/fonts/inter-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/dm-serif-display-400-latin.woff2" as="font" type="font/woff2" crossorigin>
 
   <link rel="stylesheet" href="/assets/css/main.css?v=${CSS_VERSION}">
 
