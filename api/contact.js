@@ -107,39 +107,109 @@ const SERVICE_LABELS = {
   'general': 'General Enquiry',
 };
 
+/**
+ * Branded enquiry email. Colours/fonts are hard-coded from the site's CSS
+ * tokens (assets/css/_tokens.css) because email clients strip <style> blocks,
+ * external CSS and web fonts — so everything is inline and table-based:
+ *   brand blue   #30588C   (--color-brand / links)
+ *   heritage gold #B8860B  (--color-secondary — the site's signature rule)
+ *   dark navy    #0f172a   (--color-primary — header band)
+ *   body text    #1e293b   (--color-text)
+ *   muted label  #6B6560   (--color-text-muted)
+ *   surface      #FAF8F5   (--color-surface — outer bg + message panel)
+ *   border       #E8E3DC   (--color-border)
+ * Serif wordmark approximates DM Serif Display; sans body approximates Inter.
+ */
 function enquiryEmail({ name, email, phone, company, service, subject, message }) {
+  const SANS = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif";
+  const SERIF = "Georgia, 'Times New Roman', Times, serif";
+
+  const telHref = phone ? phone.replace(/[^\d+]/g, '') : '';
   const rows = [
-    ['Name', name],
-    ['Email', email],
-    ['Phone', phone || '—'],
-    ['Company', company || '—'],
-    ['Service', SERVICE_LABELS[service] || service || '—'],
-    ['Subject', subject || '—'],
-  ]
-    .map(
-      ([label, value]) => `
-      <tr>
-        <td style="padding:6px 12px 6px 0;color:#5b6474;white-space:nowrap;vertical-align:top;">${label}</td>
-        <td style="padding:6px 0;color:#1a2233;">${escapeHtml(value)}</td>
-      </tr>`
-    )
+    ['Name', escapeHtml(name)],
+    ['Email', `<a href="mailto:${escapeHtml(email)}" style="color:#30588C;text-decoration:underline;">${escapeHtml(email)}</a>`],
+    ['Phone', phone ? `<a href="tel:${escapeHtml(telHref)}" style="color:#30588C;text-decoration:none;">${escapeHtml(phone)}</a>` : '&mdash;'],
+    ['Company', company ? escapeHtml(company) : '&mdash;'],
+    ['Service', escapeHtml(SERVICE_LABELS[service] || service || '') || '&mdash;'],
+    ['Subject', subject ? escapeHtml(subject) : '&mdash;'],
+  ];
+
+  const rowsHtml = rows
+    .map(([label, value], i) => {
+      const border = i < rows.length - 1 ? 'border-bottom:1px solid #E8E3DC;' : '';
+      return `<tr>
+              <td style="padding:11px 16px 11px 0;${border}font-family:${SANS};font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:#6B6560;vertical-align:top;white-space:nowrap;">${label}</td>
+              <td style="padding:11px 0;${border}font-family:${SANS};font-size:15px;line-height:1.5;color:#1e293b;vertical-align:top;">${value}</td>
+            </tr>`;
+    })
     .join('');
 
-  const html = `
-<div style="font-family:system-ui,-apple-system,'Segoe UI',sans-serif;max-width:560px;margin:0 auto;color:#1a2233;">
-  <div style="border-bottom:3px solid #2563eb;padding:16px 0;margin-bottom:16px;">
-    <strong style="font-size:18px;">Scalderhurst</strong>
-    <span style="color:#5b6474;"> — website enquiry</span>
-  </div>
-  <table style="border-collapse:collapse;font-size:14px;">${rows}</table>
-  <div style="margin-top:16px;padding:16px;background:#f6f7f9;border-radius:6px;font-size:14px;white-space:pre-wrap;">${escapeHtml(message)}</div>
-  <p style="color:#8a92a3;font-size:12px;margin-top:16px;">
-    Sent from the enquiry form at www.scalderhurst.co.uk. Reply to this email to respond directly to the enquirer.
-  </p>
-</div>`;
+  const messageHtml = escapeHtml(message).replace(/\r?\n/g, '<br>');
+
+  const html = `<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light only">
+<title>Website enquiry — Scalderhurst</title>
+</head>
+<body style="margin:0;padding:0;background-color:#FAF8F5;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#FAF8F5;">
+    <tr>
+      <td align="center" style="padding:32px 16px;">
+
+        <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;background-color:#ffffff;border:1px solid #E8E3DC;border-radius:8px;overflow:hidden;">
+
+          <!-- Header band -->
+          <tr>
+            <td bgcolor="#0f172a" style="background-color:#0f172a;padding:28px 32px;">
+              <div style="font-family:${SANS};font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#B8860B;padding-bottom:6px;">Website Enquiry</div>
+              <div style="font-family:${SERIF};font-size:28px;line-height:1.1;color:#ffffff;">Scalderhurst</div>
+            </td>
+          </tr>
+          <!-- Signature gold rule -->
+          <tr>
+            <td bgcolor="#B8860B" height="4" style="background-color:#B8860B;height:4px;line-height:4px;font-size:0;">&nbsp;</td>
+          </tr>
+
+          <!-- Body -->
+          <tr>
+            <td style="padding:28px 32px 8px 32px;">
+              <p style="margin:0 0 20px 0;font-family:${SANS};font-size:15px;line-height:1.6;color:#746E68;">A new enquiry has been submitted through the website contact form.</p>
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">${rowsHtml}</table>
+            </td>
+          </tr>
+
+          <!-- Message panel -->
+          <tr>
+            <td style="padding:12px 32px 28px 32px;">
+              <div style="font-family:${SANS};font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:#6B6560;padding-bottom:8px;">Message</div>
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#FAF8F5;border-left:3px solid #30588C;border-radius:4px;">
+                <tr>
+                  <td style="padding:16px 18px;font-family:${SANS};font-size:15px;line-height:1.65;color:#1e293b;">${messageHtml}</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="padding:20px 32px;border-top:1px solid #E8E3DC;background-color:#FAF8F5;">
+              <p style="margin:0;font-family:${SANS};font-size:12px;line-height:1.55;color:#746E68;">Sent from the enquiry form at <span style="color:#30588C;">www.scalderhurst.co.uk</span>. Reply to this email to respond directly to the enquirer.</p>
+            </td>
+          </tr>
+
+        </table>
+
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
 
   const text = [
-    'Website enquiry — Scalderhurst',
+    'WEBSITE ENQUIRY — Scalderhurst',
     '',
     `Name:    ${name}`,
     `Email:   ${email}`,
@@ -148,7 +218,12 @@ function enquiryEmail({ name, email, phone, company, service, subject, message }
     `Service: ${SERVICE_LABELS[service] || service || '-'}`,
     `Subject: ${subject || '-'}`,
     '',
+    'Message:',
     message,
+    '',
+    '—',
+    'Sent from the enquiry form at www.scalderhurst.co.uk.',
+    'Reply to this email to respond directly to the enquirer.',
   ].join('\n');
 
   return { html, text };
