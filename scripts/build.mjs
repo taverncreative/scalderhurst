@@ -27,6 +27,7 @@ import { postPage, archivePage } from './lib/templates.mjs';
 import { writeSitemap } from './lib/sitemap.mjs';
 import { writeFeeds } from './lib/feeds.mjs';
 import { resolveIncludes } from './lib/includes.mjs';
+import { processStaticImages } from './lib/static-images.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -34,6 +35,7 @@ const SITE_ROOT = resolve(__dirname, '..');
 const CONTENT_DIR = join(SITE_ROOT, 'content');
 const NEWS_DIR = join(SITE_ROOT, 'news');
 const CACHE_PATH = join(SITE_ROOT, 'scripts', '.cache', 'images.json');
+const STATIC_IMAGE_CACHE_PATH = join(SITE_ROOT, 'scripts', '.cache', 'static-images.json');
 
 function log(msg) {
   console.log(`[build] ${msg}`);
@@ -69,6 +71,12 @@ async function main() {
   }
 
   await writeImageCache(CACHE_PATH, imageCache);
+
+  // Responsive renditions for static-page images (products, warehouse, …)
+  const staticImageCache = await getImageCache(STATIC_IMAGE_CACHE_PATH);
+  const staticProduced = await processStaticImages(SITE_ROOT, staticImageCache);
+  await writeImageCache(STATIC_IMAGE_CACHE_PATH, staticImageCache);
+  if (staticProduced) log(`generated ${staticProduced} static-image renditions (remaining cached)`);
 
   // Render body HTML for each post (used by post page AND feeds)
   for (const post of posts) {

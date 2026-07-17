@@ -33,7 +33,10 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="/assets/css/main.css?v=15">
+  <link rel="stylesheet" href="/assets/css/main.css?v=16">
+
+  <!-- LCP hero image -->
+  <link rel="preload" as="image" href="/assets/images/renditions/team/team-warehouse-1200.webp" fetchpriority="high">
 
   <!-- ============================================================
        STRUCTURED DATA — Organization (JSON-LD)
@@ -137,7 +140,7 @@
 
 
     <!-- 1. HERO -->
-    <header class="hero hero--dark" aria-labelledby="hero-heading" style="background-image: url('/assets/images/team/team-warehouse.jpg');">
+    <header class="hero hero--dark" aria-labelledby="hero-heading" style="background-image: url('/assets/images/renditions/team/team-warehouse-1200.webp');">
       <div class="container">
         <h1 id="hero-heading">About Scalderhurst</h1>
         <p>Scalderhurst is a family-run paper and board merchant, now in its third generation. For over 50 years we've been supplying converters, printers, packaging companies and brand owners across the UK, Ireland and overseas — and the values we started with haven't changed.</p>
@@ -159,7 +162,7 @@
         <p>The business is still family-run, now in its third generation. That continuity matters. It means the people you deal with understand the products, the mills and the market — not because they read about it, but because they grew up in it. Decisions are made quickly, by people who care about getting it right, and relationships with customers and suppliers alike are measured in decades, not contracts.</p>
 
         <figure class="story-photo">
-          <img src="/assets/images/team/family-run-business.jpg" alt="Three generations of the Scalderhurst family together" loading="lazy" width="1200" height="1200">
+          <img src="/assets/images/renditions/team/family-run-business-960.jpg" srcset="/assets/images/renditions/team/family-run-business-480.webp 480w, /assets/images/renditions/team/family-run-business-960.webp 960w, /assets/images/renditions/team/family-run-business-1200.webp 1200w" sizes="(min-width: 1152px) 1104px, 100vw" width="960" height="960" alt="Three generations of the Scalderhurst family together" loading="lazy">
           <figcaption>Three generations &mdash; the family who continue to run Scalderhurst today.</figcaption>
         </figure>
 

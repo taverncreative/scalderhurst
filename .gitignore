@@ -21,6 +21,7 @@ node_modules/
 /news/feed.xml
 /news/feed.json
 /assets/images/news/
+/assets/images/renditions/
 /scripts/.cache/
 
 # Vercel local

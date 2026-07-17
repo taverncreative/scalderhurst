@@ -30,6 +30,14 @@ const PRUNE_PATHS = [
   'content/.admin',
   'content/posts',
   'scripts/.cache',
+  // Rendition sources — pages reference only /assets/images/renditions/,
+  // which build.mjs generates from these before this prune runs. Originals
+  // stay in git as source material. (banners/ stays deployed: og:image URLs
+  // point at the originals there.)
+  'assets/images/products',
+  'assets/images/warehouse',
+  'assets/images/industries',
+  'assets/images/team',
 ];
 
 const force = process.argv.includes('--force');
